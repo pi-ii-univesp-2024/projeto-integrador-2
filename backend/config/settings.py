@@ -39,6 +39,11 @@ ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Aplicações
+LOCAL_APPS = [
+    'apps.lanchonete',
+    'apps.common',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'apps.lanchonete',
+    *LOCAL_APPS,
 ]
 
 # Middleware
