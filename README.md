@@ -103,3 +103,10 @@ views.py
 ```
 
 Na raiz do app `backend/apps/lanchonete/`existem os arquivos `admin.py` e `urls.py` que gerenciam todas as entidades no admin do django e as urls do app.
+
+Toda vez que for criada ou edtiada alguma entidade (models.py), faça a migração.
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
