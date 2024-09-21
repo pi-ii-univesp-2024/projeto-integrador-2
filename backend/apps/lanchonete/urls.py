@@ -2,9 +2,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-# cada path será para um model (pasta) dentro de apps/lanchonete/MODEL/urls.py
-#  exemplo: path('produtos/', include('apps.lanchonete.produtos.urls')), onde 'produtos' é um model (pasta)
+# cada path será para uma entidade (pasta) dentro de apps/lanchonete/ENTIDADE/urls.py
+#  exemplo: path('produtos/', include('apps.lanchonete.produto.urls')), onde 'produtos' é uma entidade (pasta)
 
 urlpatterns = [
-    path('produtos/', include('apps.lanchonete.produtos.urls')),
+    # path('produtos/', include('apps.lanchonete.produto.urls')),
+    path('categorias_produtos/', include('apps.lanchonete.categoria_produto.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
