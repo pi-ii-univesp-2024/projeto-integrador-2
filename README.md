@@ -9,7 +9,7 @@ Tema: Desenvolver um software com framework web que utilize banco de dados, incl
 <!--ts-->
   * [Requisitos iniciais](#Requisitos-iniciais)
   * [Ambiente de desenvolvimento](#Ambiente-de-desenvolvimento)
-  * [O Projeto](#O Projeto)
+  * [O Projeto](#O-Projeto)
 <!--te-->
 
 ### Requisitos iniciais
