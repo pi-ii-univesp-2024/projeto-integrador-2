@@ -92,7 +92,6 @@ Dividimos o projeto do backend em dois apps: `common` e `lanchonete`. O app comm
 Para cada nova entidade (tabela) referente ao app, crie uma pasta em `/backend/apps/<nome_app>/<nome_entidade>` e crie todos os arquivos necessários
 ```
 __init__.py
-admin.py
 filters.py
 models.py
 selector.py
@@ -101,4 +100,6 @@ services.py
 tests.py
 urls.py
 views.py
-``` 
+```
+
+Na raiz do app `backend/apps/lanchonete/`existem os arquivos `admin.py` e `urls.py` que gerenciam todas as entidades no admin do django e as urls do app.
