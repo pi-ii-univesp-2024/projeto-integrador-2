@@ -9,6 +9,7 @@ Tema: Desenvolver um software com framework web que utilize banco de dados, incl
 <!--ts-->
   * [Requisitos iniciais](#Requisitos-iniciais)
   * [Ambiente de desenvolvimento](#Ambiente-de-desenvolvimento)
+  * [O Projeto](#O Projeto)
 <!--te-->
 
 ### Requisitos iniciais
@@ -79,3 +80,25 @@ npm run dev
 ```
 
 Acesse a URL ```http://localhost:3000```
+
+### O Projeto
+
+O projeto é um sistema de gestão de estoque e produtos de uma lanchonete.
+
+#### Backend
+
+Dividimos o projeto do backend em dois apps: `common` e `lanchonete`. O app common terá classes e funções genéricas, comuns a qualquer outro app. Já o app lanchonete será responsável por gerir todas as entidades e regras de negócio do projeto.
+
+Para cada nova entidade (tabela) referente ao app, crie uma pasta em `/backend/apps/<nome_app>/<nome_entidade>` e crie todos os arquivos necessários
+```
+__init__.py
+admin.py
+filters.py
+models.py
+selector.py
+serializers.py
+services.py
+tests.py
+urls.py
+views.py
+``` 
