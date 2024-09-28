@@ -23,16 +23,28 @@ ALLOWED_HOSTS = []
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+
 CORS_ALLOW_METHODS = [
-    'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS',
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
 ]
+
 CORS_ALLOW_HEADERS = [
-    'content-type', 'authorization', 'x-csrftoken', 'x-requested-with',
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'x-requested-with',
 ]
+
 
 # URL configuration
 ROOT_URLCONF = 'config.urls'
@@ -58,6 +70,7 @@ INSTALLED_APPS = [
 
 # Middleware
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
