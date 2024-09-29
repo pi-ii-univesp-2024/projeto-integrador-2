@@ -110,3 +110,25 @@ Toda vez que for criada ou edtiada alguma entidade (models.py), faça a migraç�
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+#### Frontend
+
+A estrutura de pastas do projeto se concentra em `\src`:
+
+```
+components
+config
+contexts
+hooks
+pages
+```
+
+A pasta `components` deve conter todos os componentes que podem ser reutilizáveis, como por exemplo botões, listagens, tags, etc. 
+
+A pasta `config` contém arquivos de configuração geral. Ex: `theme.js`
+
+A pasta `contexts` contém todos as `Contexts API` do React. A `Context API` permite compartilhar estados e funções entre componentes de diferentes níveis da árvore de componentes sem precisar passar props manualmente por todos eles. Ex: `SiderbarContext.js` que provê o estado e sua função modificadora para qualquer componente de toda a aplicação que estiver dentro de `SidebarProvider`.
+
+A pasta `hooks` contém todos os hooks personalizados, em geral hooks de fetch de dados. Ex: `useProdutos`, `useProduto`, `useCreateProduto`, `useEditProduto`, etc.
+
+A pasta `pages` contém todas as rotas da aplicação. Dentro dela há dois arquivos de configurações gerais `_app.js` e `_document.js`. Já o arquivo `index.js` é o rota root `/`. Para criar novas rotas, basta criar uma pasta como o nome da rota e o arquivo `index.js`. Ex: `produtos` onde a rota será `/produtos`. Para criar rotas dinâmicas (aninhada), basta criar uma pasta dentro da rota pai com o "slug". Ex: `[produto_id]` onde a rota será `/produtos/<produto_id>`.
