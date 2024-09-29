@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import theme from "@/config/theme";
+import getTheme from "@/config/theme";
 import { ThemeProvider } from "@mui/material";
 import { QueryClientProvider } from "@tanstack/react-query";
 import Head from "next/head";
@@ -9,7 +9,7 @@ import queryClient from "@/config/queryClient";
 export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={getTheme()}>
         <SidebarProvider>
           <Head>
             <title>Controle de estoque</title>
