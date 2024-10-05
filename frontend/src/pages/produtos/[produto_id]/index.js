@@ -75,6 +75,7 @@ function InformacoesGerais({ produto }) {
         <BasicRow title="Marca" value={produto.marca} />
         <BasicRow title="Fornecedor" value={fornecedor?.nome} />
         <BasicRow title="Categoria" value={categoria?.nome} />
+        <BasicRow title="Descrição" value={produto.descricao} />
       </Stack>
     </Stack>
   );
@@ -128,7 +129,10 @@ function InformacoesVencimentoRegistro({ produto }) {
       <Stack gap={1}>
         <BasicRow title="Data de vencimento" value={dataVencimento} />
         <BasicRow title="Data de registro" value={dataRegistro} />
-        <BasicRow title="Data última atualização" value={dataUltimaAtualizacao} />
+        <BasicRow
+          title="Data última atualização"
+          value={dataUltimaAtualizacao}
+        />
       </Stack>
     </Stack>
   );
