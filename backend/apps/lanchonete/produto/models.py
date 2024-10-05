@@ -30,13 +30,48 @@ class Produto(BaseModel):
         return self.nome
 
     def save(self, *args, **kwargs):
+        # Se for a criação do produto (primeira vez salvando)
+        from apps.lanchonete.estoque.models import Estoque
         if not self.pk:
-            from apps.lanchonete.estoque.models import Estoque
             super().save(*args, **kwargs)
             Estoque.objects.create(
                 produto=self,
                 quantidade=self.quantidade_estoque,
-                tipo='ENTRADA',
+                tipo=Estoque.TipoMovimentacao.ENTRADA,
+                observacao='Produto criado com entrada inicial.'
             )
         else:
-            super().save(*args, **kwargs)
+            # Verifica a quantidade de estoque antes de salvar
+            produto_antigo = Produto.objects.get(pk=self.pk)
+
+            # Se a quantidade de estoque for alterada
+            if produto_antigo.quantidade_estoque != self.quantidade_estoque:
+                diferenca_estoque = self.quantidade_estoque - produto_antigo.quantidade_estoque
+
+                # Se for uma entrada de estoque (aumenta a quantidade)
+                if diferenca_estoque > 0:
+                    Estoque.objects.create(
+                        produto=self,
+                        quantidade=diferenca_estoque,
+                        tipo=Estoque.TipoMovimentacao.ENTRADA,
+                        observacao='Produto atualizado com aumento de estoque.'
+                    )
+
+                # Se for uma saída de estoque (reduz a quantidade)
+                elif diferenca_estoque < 0:
+                    quantidade_retirada = abs(diferenca_estoque)
+
+                    # Verifica se a retirada é maior do que a quantidade disponível
+                    if quantidade_retirada > produto_antigo.quantidade_estoque:
+                        raise ValueError(
+                            "A quantidade retirada não pode ser maior do que a quantidade disponível no estoque."
+                        )
+
+                    Estoque.objects.create(
+                        produto=self,
+                        quantidade=quantidade_retirada,
+                        tipo=Estoque.TipoMovimentacao.SAIDA,
+                        observacao='Produto atualizado com retirada de estoque.'
+                    )
+
+        super().save(*args, **kwargs)

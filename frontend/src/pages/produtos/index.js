@@ -25,7 +25,7 @@ export default function Produtos() {
       headerName: "Descrição",
       renderCell: (props) => (
         <Typography variant="body2" title={props.value}>
-          {props.value}
+          {props.value || "-"}
         </Typography>
       ),
       flex: 1,
@@ -35,7 +35,7 @@ export default function Produtos() {
       headerName: "Marca",
       renderCell: (props) => (
         <Typography variant="body2" title={props.value}>
-          {props.value}
+          {props.value || "-"}
         </Typography>
       ),
       flex: 1,
@@ -150,7 +150,7 @@ function FornecedorRow({ fornecedorId }) {
   return (
     <CustomLink href={`/fornecedores/${fornecedorId}`}>
       <Typography variant="body2" title={fornecedor.nome} color="primary">
-        {fornecedor.nome}
+        {fornecedor.nome || "-"}
       </Typography>
     </CustomLink>
   );
