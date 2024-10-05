@@ -21,10 +21,22 @@ class Produto(BaseModel):
         max_length=8, choices=UnidadeMedida.choices)
     preco_por_unidade = models.DecimalField(max_digits=10, decimal_places=2)
     quantidade_estoque = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0)
+        max_digits=10, decimal_places=3, default=0)
     data_validade = models.DateField(blank=True, null=True)
     quantidade_minima = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0)
+        max_digits=10, decimal_places=3, default=0)
 
     def __str__(self) -> str:
         return self.nome
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            from apps.lanchonete.estoque.models import Estoque
+            super().save(*args, **kwargs)
+            Estoque.objects.create(
+                produto=self,
+                quantidade=self.quantidade_estoque,
+                tipo='ENTRADA',
+            )
+        else:
+            super().save(*args, **kwargs)

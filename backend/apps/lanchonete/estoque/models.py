@@ -2,7 +2,6 @@ from django.db import models
 from apps.common.models import BaseModel
 from django.utils.translation import gettext_lazy as _
 from apps.lanchonete.produto.models import Produto
-from decimal import Decimal
 
 
 class Estoque(BaseModel):
