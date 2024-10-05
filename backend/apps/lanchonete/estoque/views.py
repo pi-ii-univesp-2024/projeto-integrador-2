@@ -4,7 +4,7 @@ from .serializers import EstoqueSerializer
 
 
 class EstoqueListCreateView(generics.ListCreateAPIView):
-    queryset = Estoque.objects.all()
+    queryset = Estoque.objects.all().order_by('-id')
     serializer_class = EstoqueSerializer
 
 

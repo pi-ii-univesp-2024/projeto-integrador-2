@@ -4,7 +4,6 @@ import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import { useCategoriasProduto } from "@/hooks/categorias_produto";
 import { DateFromISO } from "@/util/date";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import Link from "next/link";
 
 export default function CategoriasProduto() {
   const { data: categoriasProduto, isLoading } = useCategoriasProduto();

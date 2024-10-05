@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../../lib/axios";
+import queryClient from "@/config/queryClient";
 
 // Hook para buscar todas as categorias de produtos
 export const useCategoriasProduto = () => {
@@ -26,7 +27,6 @@ export const useCategoriaProduto = (id, options = {}) => {
 
 // Hook para criar uma nova categoria de produto
 export const useCreateCategoriaProduto = () => {
-  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (newCategoria) => {
@@ -41,7 +41,6 @@ export const useCreateCategoriaProduto = () => {
 
 // Hook para editar uma categoria de produto existente
 export const useEditCategoriaProduto = () => {
-  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ id, updatedCategoria }) => {
@@ -56,7 +55,6 @@ export const useEditCategoriaProduto = () => {
 
 // Hook para excluir uma categoria de produto
 export const useDeleteCategoriaProduto = () => {
-  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (id) => {

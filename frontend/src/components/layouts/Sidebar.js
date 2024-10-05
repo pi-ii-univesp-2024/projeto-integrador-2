@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import { useState } from "react";
 import {
   List,
@@ -52,6 +53,11 @@ export default function Sidebar() {
           Icon={Inventory2OutlinedIcon}
           label="Produtos"
           path="produtos"
+        />
+        <SidebarItem
+          Icon={InventoryOutlinedIcon}
+          label="Estoque e movimentações"
+          path="estoque"
         />
       </Drawer>
     </Box>
