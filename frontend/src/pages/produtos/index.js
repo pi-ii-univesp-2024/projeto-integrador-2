@@ -130,7 +130,7 @@ export default function Produtos() {
 
 function NomeRow({ nome, produtoId }) {
   return (
-    <CustomLink href={`produtos/${produtoId}`}>
+    <CustomLink href={`/produtos/${produtoId}`}>
       <Typography variant="body2" title={nome} color="primary">
         {nome}
       </Typography>
@@ -148,7 +148,7 @@ function FornecedorRow({ fornecedorId }) {
   if (isLoading || !fornecedor) return <CircularProgress />;
 
   return (
-    <CustomLink href={`fornecedores/${fornecedorId}`}>
+    <CustomLink href={`/fornecedores/${fornecedorId}`}>
       <Typography variant="body2" title={fornecedor.nome} color="primary">
         {fornecedor.nome}
       </Typography>

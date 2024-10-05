@@ -13,7 +13,7 @@ export default function CategoriasProduto() {
       field: "nome",
       headerName: "Nome",
       renderCell: (props) => (
-        <CustomLink href={`categorias-produto/${props.row.id}`}>
+        <CustomLink href={`/categorias-produto/${props.row.id}`}>
           <Typography variant="body2">{props.value}</Typography>
         </CustomLink>
       ),

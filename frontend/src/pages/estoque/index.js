@@ -76,7 +76,7 @@ function ProdutoRow({ produtoId }) {
   if (isLoading || !produto) return <CircularProgress />;
 
   return (
-    <CustomLink href={`produtos/${produtoId}`}>
+    <CustomLink href={`/produtos/${produtoId}`}>
       <Typography variant="body2" title={produto.nome} color="primary">
         {produto.nome}
       </Typography>

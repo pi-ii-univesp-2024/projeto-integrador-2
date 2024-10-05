@@ -52,12 +52,12 @@ export default function Sidebar() {
         <SidebarItem
           Icon={Inventory2OutlinedIcon}
           label="Produtos"
-          path="produtos"
+          path="/produtos"
         />
         <SidebarItem
           Icon={InventoryOutlinedIcon}
           label="Estoque e movimentações"
-          path="estoque"
+          path="/estoque"
         />
       </Drawer>
     </Box>
