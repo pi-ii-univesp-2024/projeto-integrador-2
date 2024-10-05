@@ -76,13 +76,11 @@ function ProdutoRow({ produtoId }) {
   if (isLoading || !produto) return <CircularProgress />;
 
   return (
-    <Box width="fit-content">
-      <CustomLink href={`produtos/${produtoId}`}>
-        <Typography variant="body2" title={produto.nome}>
-          {produto.nome}
-        </Typography>
-      </CustomLink>
-    </Box>
+    <CustomLink href={`produtos/${produtoId}`}>
+      <Typography variant="body2" title={produto.nome} color="primary">
+        {produto.nome}
+      </Typography>
+    </CustomLink>
   );
 }
 
@@ -101,7 +99,9 @@ function QuantidadeRow({ quantidade }) {
 function TipoRow({ tipo }) {
   if (!tipo) return;
 
-  const label = ESTOQUE_TIPO_OPTIONS?.find((item) => item.value === tipo)?.label;
+  const label = ESTOQUE_TIPO_OPTIONS?.find(
+    (item) => item.value === tipo
+  )?.label;
   const colorOptions = {
     ENTRADA: "primary",
     SAIDA: "error",

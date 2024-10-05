@@ -31,6 +31,13 @@ export default function CustomDataGrid({
           {
             outline: "none !important",
           },
+        "& .MuiDataGrid-cell": {
+          "& *": {
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          },
+        },
       }}
     />
   );
