@@ -16,7 +16,7 @@ export default function Produtos() {
       field: "nome",
       headerName: "Nome",
       renderCell: (props) => (
-        <NomeRow nome={props.value} produtoId={props.value.id} />
+        <NomeRow nome={props.value} produtoId={props.row.id} />
       ),
       flex: 1,
     },
