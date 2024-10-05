@@ -16,7 +16,7 @@ export const useCategoriasProduto = () => {
 // Hook para buscar uma única categoria de produto
 export const useCategoriaProduto = (id, options = {}) => {
   return useQuery({
-    queryKey: ["categoria_produto", id],
+    queryKey: ["categorias_produtos", id],
     queryFn: async () => {
       const response = await api.get(`categorias_produtos/${id}/`);
       return response.data;

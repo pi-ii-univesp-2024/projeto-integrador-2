@@ -18,7 +18,7 @@ export const useProduto = (id, options = {}) => {
   // options vem de fora que podemos usar para só fazer o fetch após determinada condição
   // ex: const queryOptions = {enabled: !!id}
   return useQuery({
-    queryKey: ["produto", id],
+    queryKey: ["produtos", id],
     queryFn: async () => {
       const response = await api.get(`produtos/${id}/`);
       return response.data;

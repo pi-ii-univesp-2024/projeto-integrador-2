@@ -14,7 +14,7 @@ export const useFornecedores = () => {
 
 export const useFornecedor = (id, options = {}) => {
   return useQuery({
-    queryKey: ["fornecedor", id],
+    queryKey: ["fornecedores", id],
     queryFn: async () => {
       const response = await api.get(`fornecedores/${id}/`);
       return response.data;
