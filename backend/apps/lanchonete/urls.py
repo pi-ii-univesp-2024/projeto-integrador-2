@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 #  exemplo: path('produtos/', include('apps.lanchonete.produto.urls')), onde 'produtos' é uma entidade (pasta)
 
 urlpatterns = [
-    # path('produtos/', include('apps.lanchonete.produto.urls')),
+    path('produtos/', include('apps.lanchonete.produto.urls')),
     path('categorias_produtos/', include('apps.lanchonete.categoria_produto.urls')),
+    path('fornecedores/', include('apps.lanchonete.fornecedor.urls')),
+    path('estoques/', include('apps.lanchonete.estoque.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
