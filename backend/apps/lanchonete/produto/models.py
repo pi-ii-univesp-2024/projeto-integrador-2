@@ -22,7 +22,7 @@ class Produto(BaseModel):
     preco_por_unidade = models.DecimalField(max_digits=10, decimal_places=2)
     quantidade_estoque = models.DecimalField(
         max_digits=10, decimal_places=3, default=0)
-    data_validade = models.DateField(blank=True, null=True)
+    data_validade = models.DateField(blank=False, null=False)
     quantidade_minima = models.DecimalField(
         max_digits=10, decimal_places=3, default=0)
 
