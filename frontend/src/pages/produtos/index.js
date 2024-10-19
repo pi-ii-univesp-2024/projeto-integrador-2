@@ -1,6 +1,7 @@
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
+import { useCategoriaProduto } from "@/hooks/categorias_produto";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProdutos } from "@/hooks/produtos";
 import { DateFromISO } from "@/util/date";
@@ -28,6 +29,12 @@ export default function Produtos() {
           {props.value || "-"}
         </Typography>
       ),
+      flex: 1,
+    },
+    {
+      field: "categoria",
+      headerName: "Categoria",
+      renderCell: (props) => <CategoriaRow categoriaId={props.value} />,
       flex: 1,
     },
     {
@@ -133,6 +140,24 @@ function NomeRow({ nome, produtoId }) {
     <CustomLink href={`/produtos/${produtoId}`}>
       <Typography variant="body2" title={nome} color="primary">
         {nome}
+      </Typography>
+    </CustomLink>
+  );
+}
+
+function CategoriaRow({ categoriaId }) {
+  const queryOptions = { enabled: !!categoriaId };
+  const { data: categoria, isLoading } = useCategoriaProduto(
+    categoriaId,
+    queryOptions
+  );
+
+  if (isLoading || !categoria) return <CircularProgress />;
+
+  return (
+    <CustomLink href={`/categorias-produto/${categoriaId}`}>
+      <Typography variant="body2" title={categoria.nome} color="primary">
+        {categoria.nome || "-"}
       </Typography>
     </CustomLink>
   );

@@ -78,7 +78,11 @@ function InformacoesGerais({ produto }) {
           value={fornecedor?.nome}
           link={`/fornecedores/${fornecedorId}`}
         />
-        <TitleValueComponent title="Categoria" value={categoria?.nome} />
+        <TitleValueComponent
+          title="Categoria"
+          value={categoria?.nome}
+          link={`/categorias-produto/${categoriaId}`}
+        />
         <TitleValueComponent
           title="Descrição"
           value={produto.descricao || "-"}
