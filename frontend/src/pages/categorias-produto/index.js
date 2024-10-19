@@ -14,7 +14,7 @@ export default function CategoriasProduto() {
       headerName: "Nome",
       renderCell: (props) => (
         <CustomLink href={`/categorias-produto/${props.row.id}`}>
-          <Typography variant="body2">{props.value}</Typography>
+          <Typography variant="body2" color="primary">{props.value}</Typography>
         </CustomLink>
       ),
       flex: 1,
@@ -25,6 +25,21 @@ export default function CategoriasProduto() {
       renderCell: (props) => {
         const created_at = DateFromISO(props.value);
         return <Typography variant="body2">{created_at}</Typography>;
+      },
+      flex: 1,
+    },
+    {
+      field: "updated_at",
+      headerName: "Data de edição",
+      headerAlign: "center",
+      align: "center",
+      renderCell: (props) => {
+        const updated_at = DateFromISO(props.value);
+        return (
+          <Typography variant="body2" title={updated_at}>
+            {updated_at}
+          </Typography>
+        );
       },
       flex: 1,
     },

@@ -1,8 +1,6 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { DateFromISO } from "@/util/date";
-import { formatPrecoReal } from "@/util/numbers";
-import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
 import { formatPhoneNumber } from "@/util/telefone";
 import {
   Box,
