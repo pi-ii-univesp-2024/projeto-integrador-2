@@ -1,5 +1,4 @@
 import MainLayout from "@/components/layouts/MainLayout";
-import BasicRow from "@/components/lists/BasicRow";
 import { useCategoriaProduto } from "@/hooks/categorias_produto";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProduto } from "@/hooks/produtos";
@@ -16,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "next/navigation";
+import TitleValueComponent from "@/components/generics/TitleValueComponent";
 
 export default function Produto() {
   const params = useParams();
@@ -71,11 +71,11 @@ function InformacoesGerais({ produto }) {
     <Stack gap={2}>
       <Typography variant="h3">Informações gerais</Typography>
       <Stack gap={1}>
-        <BasicRow title="Nome" value={produto.nome} />
-        <BasicRow title="Marca" value={produto.marca} />
-        <BasicRow title="Fornecedor" value={fornecedor?.nome} />
-        <BasicRow title="Categoria" value={categoria?.nome} />
-        <BasicRow title="Descrição" value={produto.descricao} />
+        <TitleValueComponent title="Nome" value={produto.nome} />
+        <TitleValueComponent title="Marca" value={produto.marca} />
+        <TitleValueComponent title="Fornecedor" value={fornecedor?.nome} />
+        <TitleValueComponent title="Categoria" value={categoria?.nome} />
+        <TitleValueComponent title="Descrição" value={produto.descricao || '-'} />
       </Stack>
     </Stack>
   );
@@ -101,16 +101,16 @@ function InformacoesPrecoEstoque({ produto }) {
     <Stack gap={2}>
       <Typography variant="h3">Informações de preço e estoque</Typography>
       <Stack gap={1}>
-        <BasicRow
+        <TitleValueComponent
           title="Quantidade mínima em estoque"
           value={quantidadeMinimaComVirgula}
         />
-        <BasicRow
+        <TitleValueComponent
           title="Quantidade total em estoque"
           value={quantidadeEstoqueComVirgula}
         />
-        <BasicRow title="Preço por unidade" value={precoEmReal} />
-        <BasicRow title="Unidade" value={unidade} />
+        <TitleValueComponent title="Preço por unidade" value={precoEmReal} />
+        <TitleValueComponent title="Unidade" value={unidade} />
       </Stack>
     </Stack>
   );
@@ -127,10 +127,10 @@ function InformacoesVencimentoRegistro({ produto }) {
     <Stack gap={2}>
       <Typography variant="h3">Informações de vencimento e registro</Typography>
       <Stack gap={1}>
-        <BasicRow title="Data de vencimento" value={dataVencimento} />
-        <BasicRow title="Data de registro" value={dataRegistro} />
-        <BasicRow
-          title="Data última atualização"
+        <TitleValueComponent title="Data de vencimento" value={dataVencimento} />
+        <TitleValueComponent title="Data de registro" value={dataRegistro} />
+        <TitleValueComponent
+          title="Data da última atualização"
           value={dataUltimaAtualizacao}
         />
       </Stack>

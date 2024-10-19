@@ -35,7 +35,7 @@ export default function Estoque() {
     },
     {
       field: "created_at",
-      headerName: "Data de criação",
+      headerName: "Data da movimentação",
       headerAlign: "center",
       align: "center",
       renderCell: (props) => {
