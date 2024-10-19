@@ -73,9 +73,16 @@ function InformacoesGerais({ produto }) {
       <Stack gap={1}>
         <TitleValueComponent title="Nome" value={produto.nome} />
         <TitleValueComponent title="Marca" value={produto.marca} />
-        <TitleValueComponent title="Fornecedor" value={fornecedor?.nome} />
+        <TitleValueComponent
+          title="Fornecedor"
+          value={fornecedor?.nome}
+          link={`/fornecedores/${fornecedorId}`}
+        />
         <TitleValueComponent title="Categoria" value={categoria?.nome} />
-        <TitleValueComponent title="Descrição" value={produto.descricao || '-'} />
+        <TitleValueComponent
+          title="Descrição"
+          value={produto.descricao || "-"}
+        />
       </Stack>
     </Stack>
   );
@@ -127,7 +134,10 @@ function InformacoesVencimentoRegistro({ produto }) {
     <Stack gap={2}>
       <Typography variant="h3">Informações de vencimento e registro</Typography>
       <Stack gap={1}>
-        <TitleValueComponent title="Data de vencimento" value={dataVencimento} />
+        <TitleValueComponent
+          title="Data de vencimento"
+          value={dataVencimento}
+        />
         <TitleValueComponent title="Data de registro" value={dataRegistro} />
         <TitleValueComponent
           title="Data da última atualização"
