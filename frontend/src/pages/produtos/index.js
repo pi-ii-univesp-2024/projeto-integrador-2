@@ -7,10 +7,23 @@ import { useProdutos } from "@/hooks/produtos";
 import { DateFromISO } from "@/util/date";
 import { formatPrecoReal } from "@/util/numbers";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { AddOutlined } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useRouter } from "next/router";
 
 export default function Produtos() {
   const { data: produtos, isLoading } = useProdutos();
+  const router = useRouter();
+
+  const handleRedirectProdutoAdd = () => {
+    router.push("/produtos/adicionar");
+  }
 
   const columns = [
     {
@@ -116,12 +129,29 @@ export default function Produtos() {
       flex: 1,
     },
   ];
+
   return (
     <MainLayout>
       {isLoading && <CircularProgress />}
       {!isLoading && (
         <Box>
-          <Typography variant="h1">Produtos</Typography>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            flexWrap="wrap"
+            gap={1}
+          >
+            <Typography variant="h1">Produtos</Typography>
+            <Button
+              startIcon={<AddOutlined />}
+              color="primary"
+              variant="contained"
+              onClick={handleRedirectProdutoAdd}
+            >
+              Novo produto
+            </Button>
+          </Stack>
           <Stack paddingTop={2}>
             <CustomDataGrid
               rows={produtos || []}

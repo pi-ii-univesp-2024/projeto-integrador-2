@@ -9,3 +9,8 @@ export function DateFromISO(ISODate) {
   const hrDate = dayjs(ISODate).format("DD/MM/YYYY");
   return hrDate;
 }
+
+export function DateToISO(datetime) {
+  const djangoDate = datetime.format("YYYY-MM-DD");
+  return djangoDate;
+}

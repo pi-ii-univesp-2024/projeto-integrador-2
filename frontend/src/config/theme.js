@@ -31,7 +31,7 @@ const getTheme = () => {
           default: "#f4f4f4",
         },
         text: {
-          primary: "#333",
+          primary: "#000",
           secondary: "#555",
         },
       },
