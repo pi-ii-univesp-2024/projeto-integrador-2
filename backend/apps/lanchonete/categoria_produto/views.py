@@ -4,7 +4,7 @@ from .serializers import CategoriaProdutoSerializer
 
 # Listar e criar categorias de produtos
 class CategoriaProdutoListCreateView(generics.ListCreateAPIView):
-    queryset = CategoriaProduto.objects.all()
+    queryset = CategoriaProduto.objects.all().order_by('-id')
     serializer_class = CategoriaProdutoSerializer
 
 # Detalhar, atualizar e deletar uma categoria de produto

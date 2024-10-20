@@ -4,7 +4,7 @@ from .serializers import ProdutoSerializer
 
 
 class ProdutoListCreateView(generics.ListCreateAPIView):
-    queryset = Produto.objects.all()
+    queryset = Produto.objects.all().order_by('-id')
     serializer_class = ProdutoSerializer
 
 

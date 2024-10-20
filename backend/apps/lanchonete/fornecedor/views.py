@@ -4,7 +4,7 @@ from .serializers import FornecedorSerializer
 
 
 class FornecedorListCreateView(generics.ListCreateAPIView):
-    queryset = Fornecedor.objects.all()
+    queryset = Fornecedor.objects.all().order_by('-id')
     serializer_class = FornecedorSerializer
 
 
