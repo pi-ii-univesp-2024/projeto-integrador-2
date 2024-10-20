@@ -147,6 +147,7 @@ export default function Produtos() {
         <GridActionsCellItem
           key="editar_produto"
           title="Editar produto"
+          label="Editar produto"
           icon={<ModeEditOutlineOutlined />}
           onClick={() => {
             handleRedirectProdutoEdit(props.row.id);
@@ -155,6 +156,7 @@ export default function Produtos() {
         <GridActionsCellItem
           key="registro_estoque"
           title="Registro de estoque"
+          label="Registro de estoque"
           icon={<AddOutlined />}
           onClick={() => {
             handleOpenRegistroProdutoEstoqueModal(props.row.id);
