@@ -7,7 +7,7 @@ import { useProdutos } from "@/hooks/produtos";
 import { DateFromISO } from "@/util/date";
 import { formatPrecoReal } from "@/util/numbers";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
-import { AddOutlined } from "@mui/icons-material";
+import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 
 export default function Produtos() {
@@ -23,7 +24,11 @@ export default function Produtos() {
 
   const handleRedirectProdutoAdd = () => {
     router.push("/produtos/adicionar");
-  }
+  };
+
+  const handleRedirectProdutoEdit = (produtoId) => {
+    router.push(`/produtos/${produtoId}/editar`);
+  };
 
   const columns = [
     {
@@ -127,6 +132,23 @@ export default function Produtos() {
         );
       },
       flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Editar",
+      type: "actions",
+      getActions: (props) => [
+        <GridActionsCellItem
+          key="edit"
+          label="edit"
+          title="Editar"
+          icon={<ModeEditOutlineOutlined />}
+          onClick={() => {
+            handleRedirectProdutoEdit(props.row.id);
+          }}
+        />,
+      ],
+      flex: 0.5,
     },
   ];
 

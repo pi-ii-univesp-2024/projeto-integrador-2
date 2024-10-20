@@ -12,6 +12,7 @@ const CustomAutocomplete = ({ name, label, options, ...props }) => {
       id={name}
       options={options}
       getOptionLabel={(option) => option.label || ""}
+      value={options.find((option) => option.value === field.value) || null}
       onChange={(event, newValue) => {
         setFieldValue(name, newValue ? newValue.value : "");
       }}

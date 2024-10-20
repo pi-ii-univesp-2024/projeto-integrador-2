@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../lib/axios";
 import queryClient from "@/config/queryClient";
-import { useData } from "./base_hook"; 
+import { useData } from "./base_hook";
 
 // Hook para buscar todos os fornecedores
 export const useFornecedores = (options = {}) => {
   const fetchFornecedores = async () => {
     const response = await api.get("fornecedores/");
-    return response.data; 
+    return response.data;
   };
 
   return useData(["fornecedores"], fetchFornecedores, options);
@@ -37,10 +37,10 @@ export const useCreateFornecedor = () => {
 };
 
 // Hook para editar um fornecedor existente
-export const useEditFornecedor = () => {
+export const useEditFornecedor = (id) => {
   return useMutation({
-    mutationFn: async ({ id, updatedFornecedor }) => {
-      const response = await api.put(`fornecedores/${id}/`, updatedFornecedor);
+    mutationFn: async (data) => {
+      const response = await api.put(`fornecedores/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -50,13 +50,13 @@ export const useEditFornecedor = () => {
 };
 
 // Hook para excluir um fornecedor
-export const useDeleteFornecedor = () => {
+export const useDeleteFornecedor = (id) => {
   return useMutation({
-    mutationFn: async (id) => {
+    mutationFn: async () => {
       await api.delete(`fornecedores/${id}/`);
-      return id;
+      return id; 
     },
-    onSuccess: (id) => {
+    onSuccess: (deletedId) => {
       queryClient.invalidateQueries(["fornecedores"]);
     },
   });

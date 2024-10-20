@@ -1,14 +1,14 @@
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
-import { useEstoque } from "@/hooks/estoque";
+import { useEstoques } from "@/hooks/estoque";
 import { useProduto } from "@/hooks/produtos";
 import { DateFromISO } from "@/util/date";
 import { ESTOQUE_TIPO_OPTIONS } from "@/util/estoque";
 import { Box, Chip, CircularProgress, Stack, Typography } from "@mui/material";
 
 export default function Estoque() {
-  const { data: estoque, isLoading } = useEstoque();
+  const { data: estoques, isLoading } = useEstoques();
 
   const columns = [
     {
@@ -58,7 +58,7 @@ export default function Estoque() {
           <Typography variant="h1">Estoque e movimentações</Typography>
           <Stack paddingTop={2}>
             <CustomDataGrid
-              rows={estoque || []}
+              rows={estoques || []}
               columns={columns}
               loading={isLoading}
             />

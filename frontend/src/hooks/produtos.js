@@ -37,10 +37,10 @@ export const useCreateProduto = () => {
 };
 
 // Hook para editar um produto existente
-export const useEditProduto = () => {
+export const useEditProduto = (id) => {
   return useMutation({
-    mutationFn: async ({ id, updatedProduto }) => {
-      const response = await api.put(`produtos/${id}/`, updatedProduto);
+    mutationFn: async (data) => {
+      const response = await api.put(`produtos/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -50,13 +50,13 @@ export const useEditProduto = () => {
 };
 
 // Hook para excluir um produto
-export const useDeleteProduto = () => {
+export const useDeleteProduto = (id) => {
   return useMutation({
-    mutationFn: async (id) => {
+    mutationFn: async () => {
       await api.delete(`produtos/${id}/`);
-      return id;
+      return id; 
     },
-    onSuccess: (id) => {
+    onSuccess: (deletedId) => {
       queryClient.invalidateQueries(["produtos"]);
     },
   });

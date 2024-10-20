@@ -37,13 +37,10 @@ export const useCreateCategoriaProduto = () => {
 };
 
 // Hook para editar uma categoria de produto existente
-export const useEditCategoriaProduto = () => {
+export const useEditCategoriaProduto = (id) => {
   return useMutation({
-    mutationFn: async ({ id, updatedCategoria }) => {
-      const response = await api.put(
-        `categorias_produtos/${id}/`,
-        updatedCategoria
-      );
+    mutationFn: async (data) => {
+      const response = await api.put(`categorias_produtos/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -53,13 +50,13 @@ export const useEditCategoriaProduto = () => {
 };
 
 // Hook para excluir uma categoria de produto
-export const useDeleteCategoriaProduto = () => {
+export const useDeleteCategoriaProduto = (id) => {
   return useMutation({
-    mutationFn: async (id) => {
+    mutationFn: async () => {
       await api.delete(`categorias_produtos/${id}/`);
-      return id;
+      return id; // Retorna o id após a exclusão
     },
-    onSuccess: (id) => {
+    onSuccess: (deletedId) => {
       queryClient.invalidateQueries(["categorias_produtos"]);
     },
   });
