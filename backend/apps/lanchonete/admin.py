@@ -7,14 +7,14 @@ from apps.lanchonete.estoque.models import Estoque
 
 @admin.register(CategoriaProduto)
 class CategoriaProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome',)
+    list_display = ('id','nome',)
     search_fields = ('nome',)
     ordering = ('-id',)
 
 
 @admin.register(Fornecedor)
 class FornecedorAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'telefone', 'endereco',)
+    list_display = ('id','nome', 'email', 'telefone', 'endereco',)
     list_filter = ('nome', 'email', 'telefone', 'endereco',)
     search_fields = ('nome', 'email', 'telefone', 'endereco',)
     ordering = ('-id',)
@@ -22,7 +22,7 @@ class FornecedorAdmin(admin.ModelAdmin):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'marca', 'fornecedor', 'categoria', 'unidade_medida',
+    list_display = ('id','nome', 'marca', 'fornecedor', 'categoria', 'unidade_medida',
                     'preco_por_unidade', 'quantidade_estoque', 'data_validade')
     list_filter = ('nome', 'marca', 'categoria', 'unidade_medida', 'fornecedor')
     search_fields = ('nome', 'marca', 'descricao',
@@ -32,7 +32,7 @@ class ProdutoAdmin(admin.ModelAdmin):
 
 @admin.register(Estoque)
 class EstoqueAdmin(admin.ModelAdmin):
-    list_display = ('produto', 'quantidade', 'tipo', 'observacao',)
+    list_display = ('id','produto', 'quantidade', 'tipo', 'observacao',)
     list_filter = ('produto', 'quantidade', 'tipo', 'observacao',)
     search_fields = ('produto', 'quantidade', 'tipo', 'observacao',)
     ordering = ('-id',)

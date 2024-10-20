@@ -29,49 +29,36 @@ class Produto(BaseModel):
     def __str__(self) -> str:
         return self.nome
 
-    def save(self, *args, **kwargs):
-        # Se for a criação do produto (primeira vez salvando)
+    def criar_movimentacao_estoque(self, quantidade, tipo, observacao=''):
         from apps.lanchonete.estoque.models import Estoque
-        if not self.pk:
-            super().save(*args, **kwargs)
-            Estoque.objects.create(
-                produto=self,
+        Estoque.objects.create(
+            produto=self,
+            quantidade=quantidade,
+            tipo=tipo,
+            observacao=observacao
+        )
+
+    def save(self, *args, **kwargs):
+        # Verifica se é uma criação ou atualização
+        is_new = self.pk is None  # Verifica se o produto está sendo criado
+        super().save(*args, **kwargs)  # Salva o produto
+
+        # Se for uma criação, registra a entrada no estoque
+        if is_new and self.quantidade_estoque > 0:
+            self.criar_movimentacao_estoque(
                 quantidade=self.quantidade_estoque,
-                tipo=Estoque.TipoMovimentacao.ENTRADA,
+                tipo='ENTRADA',
                 observacao='Produto criado com entrada inicial.'
             )
-        else:
-            # Verifica a quantidade de estoque antes de salvar
+        elif not is_new:
+            # Atualização: verifica se houve mudança na quantidade de estoque
             produto_antigo = Produto.objects.get(pk=self.pk)
+            diferenca_estoque = self.quantidade_estoque - produto_antigo.quantidade_estoque
 
-            # Se a quantidade de estoque for alterada
-            if produto_antigo.quantidade_estoque != self.quantidade_estoque:
-                diferenca_estoque = self.quantidade_estoque - produto_antigo.quantidade_estoque
-
-                # Se for uma entrada de estoque (aumenta a quantidade)
-                if diferenca_estoque > 0:
-                    Estoque.objects.create(
-                        produto=self,
-                        quantidade=diferenca_estoque,
-                        tipo=Estoque.TipoMovimentacao.ENTRADA,
-                        observacao='Produto atualizado com aumento de estoque.'
-                    )
-
-                # Se for uma saída de estoque (reduz a quantidade)
-                elif diferenca_estoque < 0:
-                    quantidade_retirada = abs(diferenca_estoque)
-
-                    # Verifica se a retirada é maior do que a quantidade disponível
-                    if quantidade_retirada > produto_antigo.quantidade_estoque:
-                        raise ValueError(
-                            "A quantidade retirada não pode ser maior do que a quantidade disponível no estoque."
-                        )
-
-                    Estoque.objects.create(
-                        produto=self,
-                        quantidade=quantidade_retirada,
-                        tipo=Estoque.TipoMovimentacao.SAIDA,
-                        observacao='Produto atualizado com retirada de estoque.'
-                    )
-
-        super().save(*args, **kwargs)
+            if diferenca_estoque != 0:
+                tipo = 'ENTRADA' if diferenca_estoque > 0 else 'SAIDA'
+                self.criar_movimentacao_estoque(
+                    quantidade=abs(diferenca_estoque),
+                    tipo=tipo,
+                    observacao='Produto atualizado com ajuste de estoque.'
+                )
