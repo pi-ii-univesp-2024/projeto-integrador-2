@@ -3,16 +3,17 @@ import { DataGrid } from "@mui/x-data-grid";
 export default function CustomDataGrid({
   rows,
   columns,
-  pageSize,
-  rowsPerPageOptions,
+  pageSize = 10,
+  pageSizeOptions = [10, 25, 50, 100],
   isLoading,
 }) {
   return (
     <DataGrid
       rows={rows || []}
       columns={columns || []}
-      pageSize={pageSize || 10}
-      rowsPerPageOptions={rowsPerPageOptions || [5, 10, 20]}
+      pageSize={pageSize}
+      initialState={{ pagination: { paginationModel: { pageSize: pageSize } } }}
+      pageSizeOptions={pageSizeOptions}
       disableSelectionOnClick
       disableColumnResize
       disableColumnSelector
