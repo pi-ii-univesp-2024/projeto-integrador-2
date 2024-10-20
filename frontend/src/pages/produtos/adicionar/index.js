@@ -1,10 +1,14 @@
+import { useRouter } from "next/router"; // Importe useRouter
 import MainLayout from "@/components/layouts/MainLayout";
 import ProdutoForm from "@/components/produto/ProdutoForm";
 import { useCreateProduto } from "@/hooks/produtos";
-import { DateFromISO, DateToISO } from "@/util/date";
+import { DateToISO } from "@/util/date";
 import { Box, Stack, Typography } from "@mui/material";
 
 export default function ProdutoCriar() {
+  const router = useRouter();
+  const produtoMutation = useCreateProduto();
+
   const initialValues = {
     nome: "",
     descricao: "",
@@ -18,12 +22,15 @@ export default function ProdutoCriar() {
     data_validade: "",
   };
 
-  const produtoMutation = useCreateProduto();
-
-  const handleSubmit = async (values) => {
-    const data_validade = DateToISO(values.data_validade);
+  const handleSubmit = async (values, { resetForm }) => {
+    const data_validade = DateToISO(values?.data_validade);
     await produtoMutation.mutateAsync({ ...values, data_validade });
-    console.log(values);
+    resetForm();
+    handleRedirect();
+  };
+
+  const handleRedirect = () => {
+    router.push("/produtos");
   };
 
   return (
@@ -39,6 +46,7 @@ export default function ProdutoCriar() {
           <Stack gap={1} maxWidth={600}>
             <ProdutoForm
               handleSubmit={handleSubmit}
+              handleRedirect={handleRedirect} 
               initialValues={initialValues}
             />
           </Stack>

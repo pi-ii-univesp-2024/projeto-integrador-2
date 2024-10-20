@@ -9,8 +9,13 @@ import { useFornecedores } from "@/hooks/fornecedor";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
 import CustomDateInput from "../forms/CustomDateInput";
 import dayjs from "dayjs";
+import CustomFormButtons from "../forms/CustomFormButtons";
 
-export default function ProdutoForm({ handleSubmit, initialValues }) {
+export default function ProdutoForm({
+  handleSubmit,
+  handleRedirect,
+  initialValues,
+}) {
   const now = dayjs();
 
   const validationSchema = Yup.object({
@@ -49,7 +54,7 @@ export default function ProdutoForm({ handleSubmit, initialValues }) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting, isValid  }) => (
+      {({ isSubmitting, isValid }) => (
         <Form>
           <Stack gap={2}>
             <CustomTextField name="nome" label="Nome" />
@@ -101,9 +106,10 @@ export default function ProdutoForm({ handleSubmit, initialValues }) {
               label="Data de validade"
               minDate={now}
             />
-            <Button type="submit" variant="contained" disabled={isSubmitting || !isValid }>
-              Confirmar
-            </Button>
+            <CustomFormButtons
+              cancelAction={handleRedirect}
+              confirmDisabled={isSubmitting || !isValid}
+            />
           </Stack>
         </Form>
       )}
