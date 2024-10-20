@@ -1,6 +1,8 @@
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
+import RegistroProdutoEstoqueModal from "@/components/produto/RegistroProdutoEstoqueModal";
+import EstoqueProdutoModal from "@/components/produto/RegistroProdutoEstoqueModal";
 import { useCategoriaProduto } from "@/hooks/categorias_produto";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProdutos } from "@/hooks/produtos";
@@ -17,10 +19,15 @@ import {
 } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Produtos() {
   const { data: produtos, isLoading } = useProdutos();
   const router = useRouter();
+
+  const [produtoId, setProdutoId] = useState();
+  const [openRegistroProdutoEstoqueModal, setOpenRegistroProdutoEstoqueModal] =
+    useState(false);
 
   const handleRedirectProdutoAdd = () => {
     router.push("/produtos/adicionar");
@@ -30,22 +37,21 @@ export default function Produtos() {
     router.push(`/produtos/${produtoId}/editar`);
   };
 
+  const handleOpenRegistroProdutoEstoqueModal = (produtoId) => {
+    setProdutoId(produtoId);
+    setOpenRegistroProdutoEstoqueModal(true);
+  };
+
+  const handleCloseRegistroEstoqueProdutoModal = () => {
+    setOpenRegistroProdutoEstoqueModal(false);
+  };
+
   const columns = [
     {
       field: "nome",
       headerName: "Nome",
       renderCell: (props) => (
         <NomeRow nome={props.value} produtoId={props.row.id} />
-      ),
-      flex: 1,
-    },
-    {
-      field: "descricao",
-      headerName: "Descrição",
-      renderCell: (props) => (
-        <Typography variant="body2" title={props.value}>
-          {props.value || "-"}
-        </Typography>
       ),
       flex: 1,
     },
@@ -135,20 +141,27 @@ export default function Produtos() {
     },
     {
       field: "actions",
-      headerName: "Editar",
+      headerName: "Ações",
       type: "actions",
       getActions: (props) => [
         <GridActionsCellItem
-          key="edit"
-          label="edit"
-          title="Editar"
+          key="editar_produto"
+          title="Editar produto"
           icon={<ModeEditOutlineOutlined />}
           onClick={() => {
             handleRedirectProdutoEdit(props.row.id);
           }}
         />,
+        <GridActionsCellItem
+          key="registro_estoque"
+          title="Registro de estoque"
+          icon={<AddOutlined />}
+          onClick={() => {
+            handleOpenRegistroProdutoEstoqueModal(props.row.id);
+          }}
+        />,
       ],
-      flex: 0.5,
+      flex: 1,
     },
   ];
 
@@ -182,6 +195,13 @@ export default function Produtos() {
             />
           </Stack>
         </Box>
+      )}
+      {openRegistroProdutoEstoqueModal && (
+        <RegistroProdutoEstoqueModal
+          open={openRegistroProdutoEstoqueModal}
+          handleClose={handleCloseRegistroEstoqueProdutoModal}
+          produtoId={produtoId}
+        />
       )}
     </MainLayout>
   );

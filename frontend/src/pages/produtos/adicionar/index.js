@@ -48,6 +48,7 @@ export default function ProdutoCriar() {
               handleSubmit={handleSubmit}
               handleRedirect={handleRedirect} 
               initialValues={initialValues}
+              action="add"
             />
           </Stack>
         </Stack>

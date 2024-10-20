@@ -26,15 +26,13 @@ export default function ProdutoEditar() {
     fornecedor: produto?.fornecedor,
     unidade_medida: produto?.unidade_medida,
     preco_por_unidade: Number(produto?.preco_por_unidade),
-    quantidade_estoque: Number(produto?.quantidade_estoque),
     quantidade_minima: Number(produto?.quantidade_minima),
     data_validade: dayjs(produto?.data_validade),
   };
-  console.log(produto, initialValues);
+
   const handleSubmit = async (values, { resetForm }) => {
     const data_validade = DateToISO(values?.data_validade);
     await produtoMutation.mutateAsync({ ...values, data_validade });
-    // resetForm();
     handleRedirect();
   };
 
@@ -59,6 +57,7 @@ export default function ProdutoEditar() {
                 handleSubmit={handleSubmit}
                 handleRedirect={handleRedirect}
                 initialValues={initialValues}
+                action="edit"
               />
             </Stack>
           </Stack>

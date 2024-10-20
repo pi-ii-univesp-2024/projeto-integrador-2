@@ -54,7 +54,7 @@ export const useDeleteProduto = (id) => {
   return useMutation({
     mutationFn: async () => {
       await api.delete(`produtos/${id}/`);
-      return id; 
+      return id;
     },
     onSuccess: (deletedId) => {
       queryClient.invalidateQueries(["produtos"]);
