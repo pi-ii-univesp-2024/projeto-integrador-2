@@ -1,3 +1,4 @@
+import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
@@ -5,14 +6,8 @@ import { useFornecedores } from "@/hooks/fornecedor";
 import { DateFromISO } from "@/util/date";
 import { CEPMask, CNPJMask } from "@/util/masks";
 import { formatPhoneNumber } from "@/util/telefone";
-import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { ModeEditOutlineOutlined } from "@mui/icons-material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 
@@ -33,7 +28,7 @@ export default function Fornecedores() {
       field: "nome",
       headerName: "Nome",
       renderCell: (props) => (
-        <NomeRow nome={props.value} produtoId={props.row.id} />
+        <NomeRow nome={props.value} fornecedorId={props.row.id} />
       ),
       flex: 1,
     },
@@ -181,24 +176,12 @@ export default function Fornecedores() {
   ];
   return (
     <MainLayout>
-      <Box p={2}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          gap={1}
-        >
-          <Typography variant="h1">Fornecedores</Typography>
-          <Button
-            startIcon={<AddOutlined />}
-            color="primary"
-            variant="contained"
-            onClick={handleRedirectFornecedoresAdd}
-          >
-            Novo fornecedor
-          </Button>
-        </Stack>
+      <Box p={3}>
+        <CustomHeaderPage
+          title="Fornecedores"
+          buttonLabel="Novo fornecedor"
+          action={handleRedirectFornecedoresAdd}
+        />
         <Stack paddingTop={2}>
           {isLoading && <CircularProgress />}
           {!isLoading && (
@@ -214,9 +197,12 @@ export default function Fornecedores() {
   );
 }
 
-function NomeRow({ nome, produtoId }) {
+function NomeRow({ nome, fornecedorId }) {
   return (
-    <CustomLink href={`/fornecedores/${produtoId}`}>
+    <CustomLink
+      href={`/fornecedores/${fornecedorId}`}
+      ariaLabel="Ir para a página do fornecedor"
+    >
       <Typography variant="body2" title={nome} color="primary">
         {nome}
       </Typography>

@@ -43,27 +43,27 @@ const getTheme = () => {
           fontFamily: fontSecondary.style.fontFamily,
         },
         h2: {
-          fontSize: "1.75rem",
+          fontSize: "1.3rem",
           fontWeight: 600,
           fontFamily: fontSecondary.style.fontFamily,
         },
         h3: {
-          fontSize: "1.5rem",
+          fontSize: "1.2rem",
           fontWeight: 500,
           fontFamily: fontSecondary.style.fontFamily,
         },
         h4: {
-          fontSize: "1.25rem",
+          fontSize: "1.1rem",
           fontWeight: 500,
           fontFamily: fontSecondary.style.fontFamily,
         },
         h5: {
-          fontSize: "1.125rem",
+          fontSize: "1rem",
           fontWeight: 400,
           fontFamily: fontSecondary.style.fontFamily,
         },
         h6: {
-          fontSize: "1rem",
+          fontSize: "0.75rem",
           fontWeight: 400,
           fontFamily: fontSecondary.style.fontFamily,
         },

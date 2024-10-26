@@ -79,11 +79,13 @@ function InformacoesGerais({ produto }) {
             title="Fornecedor"
             value={fornecedor?.nome}
             link={`/fornecedores/${fornecedorId}`}
+            linkAriaLabel="Ir para a página do fornecedor"
           />
           <TitleValueComponent
             title="Categoria"
             value={categoria?.nome}
             link={`/categorias-produto/${categoriaId}`}
+            linkAriaLabel="Ir para a página da categoria de produto"
           />
           <TitleValueComponent
             title="Descrição"

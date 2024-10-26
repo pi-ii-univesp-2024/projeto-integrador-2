@@ -26,6 +26,7 @@ export default function Home() {
                 href="https://github.com/jobemcamera"
                 target="_blank"
                 color="primary"
+                ariaLabel="Ir para a página do desenvolvedor"
               >
                 <Typography variant="body2" color="primary">
                   Jobe Camera

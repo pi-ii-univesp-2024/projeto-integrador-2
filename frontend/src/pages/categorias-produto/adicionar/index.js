@@ -26,13 +26,24 @@ export default function CategoriaProdutoCriar() {
     <MainLayout>
       <Box p={3}>
         <Stack gap={3}>
-          <Stack gap={1}>
-            <Typography variant="h1">Adicionar categoria de produto</Typography>
+          <Stack component="header" gap={1}>
+            <Typography
+              component="h1"
+              variant="h1"
+              id="categoria-produto-title"
+            >
+              Adicionar categoria de produto
+            </Typography>
             <Typography variant="body1">
               Crie uma nova categoria para relacionar seus produtos
             </Typography>
           </Stack>
-          <Stack gap={1} maxWidth={600}>
+          <Stack
+            gap={1}
+            maxWidth={600}
+            component="section"
+            aria-labelledby="categoria-produto-title"
+          >
             <CategoriaProdutoForm
               handleSubmit={handleSubmit}
               handleRedirect={handleRedirect}

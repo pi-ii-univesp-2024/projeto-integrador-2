@@ -6,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
-import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
-import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
+import InventoryOutlinedIcon from "@mui/icons-material/InventoryOutlined";
+import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
+import LoyaltyOutlinedIcon from "@mui/icons-material/LoyaltyOutlined";
 import {
   List,
   ListItem,
@@ -29,8 +29,8 @@ export default function Sidebar() {
     useSidebar();
 
   return (
-    <Box display="flex">
-      <Drawer variant="permanent" open={isSidebarOpen}>
+    <Box component="aside" display="flex">
+      <Drawer variant="permanent" open={isSidebarOpen} role="navigation">
         <Stack
           height={64}
           alignItems={isSidebarOpen ? "flex-end" : "center"}
@@ -38,38 +38,52 @@ export default function Sidebar() {
           justifyContent="center"
         >
           {!isSidebarOpen && (
-            <IconButton onClick={openSidebarHandler} title="Abrir">
+            <IconButton
+              onClick={openSidebarHandler}
+              title="Abrir menu lateral"
+              aria-label="Abrir menu lateral"
+              aria-controls="sidebar-menu"
+              aria-expanded={isSidebarOpen}
+            >
               <ChevronRightIcon />
             </IconButton>
           )}
           {isSidebarOpen && (
-            <IconButton onClick={closeSidebarHandler} title="Fechar">
+            <IconButton
+              onClick={closeSidebarHandler}
+              title="Fechar menu lateral"
+              aria-label="Fechar menu lateral"
+              aria-controls="sidebar-menu"
+              aria-expanded={isSidebarOpen}
+            >
               <ChevronLeftIcon />
             </IconButton>
           )}
         </Stack>
         <Divider />
-        <SidebarItem Icon={HomeOutlined} label="Home" path="/" />
-        <SidebarItem
-          Icon={InventoryOutlinedIcon}
-          label="Estoque e movimentações"
-          path="/estoque"
-        />
-        <SidebarItem
-          Icon={Inventory2OutlinedIcon}
-          label="Produtos"
-          path="/produtos"
-        />
-        <SidebarItem
-          Icon={LoyaltyOutlinedIcon}
-          label="Categorias de produto"
-          path="/categorias-produto"
-        />
-        <SidebarItem
-          Icon={HandshakeOutlinedIcon}
-          label="Fornecedores"
-          path="/fornecedores"
-        />
+        <Stack component="nav">
+          <SidebarItem Icon={HomeOutlined} label="Home" path="/" />
+          <SidebarItem
+            Icon={InventoryOutlinedIcon}
+            label="Estoque e movimentações"
+            path="/estoque"
+          />
+          <SidebarItem
+            Icon={Inventory2OutlinedIcon}
+            label="Produtos"
+            path="/produtos"
+          />
+          <SidebarItem
+            Icon={LoyaltyOutlinedIcon}
+            label="Categorias de produto"
+            path="/categorias-produto"
+          />
+          <SidebarItem
+            Icon={HandshakeOutlinedIcon}
+            label="Fornecedores"
+            path="/fornecedores"
+          />
+        </Stack>
       </Drawer>
     </Box>
   );
@@ -88,6 +102,8 @@ function SidebarItem({ Icon, label, path }) {
       <ListItem sx={{ p: 1 }}>
         <ListItemButton
           title={!isSidebarOpen ? label : ""}
+          aria-labelledby={`sidebar-item-${label}`}
+          aria-label={label}
           sx={{
             pl: 2,
             pr: 2,
@@ -103,9 +119,10 @@ function SidebarItem({ Icon, label, path }) {
               mr: isSidebarOpen ? 2 : "auto",
             }}
           >
-            {Icon && <Icon />}
+            {Icon && <Icon aria-hidden="true" />}
           </ListItemIcon>
           <ListItemText
+            id={`sidebar-item-${label}`}
             primary={<Typography variant="body1">{label}</Typography>}
             sx={{ display: isSidebarOpen ? "block" : "none" }}
           />

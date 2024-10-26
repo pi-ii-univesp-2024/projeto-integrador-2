@@ -7,7 +7,7 @@ export default function MainLayout({ children }) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Sidebar />
-      <Box component="main" sx={{ flexGrow: 1, overflow: 'auto'}}>
+      <Box component="main" sx={{ flexGrow: 1, overflow: "auto" }}>
         {children}
       </Box>
     </Box>

@@ -1,16 +1,12 @@
+import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
+import CustomLoader from "@/components/generics/CustomLoader";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import { useCategoriasProduto } from "@/hooks/categorias_produto";
 import { DateFromISO } from "@/util/date";
-import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { ModeEditOutlineOutlined } from "@mui/icons-material";
+import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 
@@ -31,7 +27,10 @@ export default function CategoriasProduto() {
       field: "nome",
       headerName: "Nome",
       renderCell: (props) => (
-        <CustomLink href={`/categorias-produto/${props.row.id}`}>
+        <CustomLink
+          href={`/categorias-produto/${props.row.id}`}
+          ariaLabel="Ir para a página da categoria do produto"
+        >
           <Typography variant="body2" color="primary">
             {props.value}
           </Typography>
@@ -85,25 +84,13 @@ export default function CategoriasProduto() {
   return (
     <MainLayout>
       <Box p={3}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          gap={1}
-        >
-          <Typography variant="h1">Categorias produto</Typography>
-          <Button
-            startIcon={<AddOutlined />}
-            color="primary"
-            variant="contained"
-            onClick={handleRedirectCategoriaProdutoAdd}
-          >
-            Nova categoria
-          </Button>
-        </Stack>
-        <Stack paddingTop={2}>
-          {isLoading && <CircularProgress />}
+        <CustomHeaderPage
+          title="Categorias de produto"
+          buttonLabel="Nova categoria"
+          action={handleRedirectCategoriaProdutoAdd}
+        />
+        <Stack component="section" paddingTop={2}>
+          {isLoading && <CustomLoader />}
           {!isLoading && (
             <CustomDataGrid
               rows={categoriasProduto || []}

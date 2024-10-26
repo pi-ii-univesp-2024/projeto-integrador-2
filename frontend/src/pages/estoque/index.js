@@ -54,7 +54,7 @@ export default function Estoque() {
     <MainLayout>
       <Box p={3}>
         <Typography variant="h1">Estoque e movimentações</Typography>
-        <Stack paddingTop={2}>
+        <Stack component="section" paddingTop={2}>
           {isLoading && <CircularProgress />}
           {!isLoading && (
             <CustomDataGrid
@@ -76,7 +76,10 @@ function ProdutoRow({ produtoId }) {
   if (isLoading || !produto) return <CircularProgress />;
 
   return (
-    <CustomLink href={`/produtos/${produtoId}`}>
+    <CustomLink
+      href={`/produtos/${produtoId}`}
+      ariaLabel="Ir para a página do produto"
+    >
       <Typography variant="body2" title={produto.nome} color="primary">
         {produto.nome}
       </Typography>

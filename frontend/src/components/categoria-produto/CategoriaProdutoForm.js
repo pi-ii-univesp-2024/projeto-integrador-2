@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import CustomTextField from "../forms/CustomTextField";
-import dayjs from "dayjs";
 import CustomFormButtons from "../forms/CustomFormButtons";
 
 export default function CategoriaProdutoForm({
@@ -11,8 +10,6 @@ export default function CategoriaProdutoForm({
   initialValues,
   action,
 }) {
-  const now = dayjs();
-
   const schema = Yup.object().shape({
     nome: Yup.string().required("Nome é obrigatório"),
   });

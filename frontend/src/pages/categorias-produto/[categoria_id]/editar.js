@@ -39,14 +39,25 @@ export default function CategoriaProdutoEditar() {
   return (
     <MainLayout>
       <Box p={3}>
-        <Stack gap={3}>
+        <Stack component="header" gap={3}>
           <Stack gap={1}>
-            <Typography variant="h1">Editar categoria de produto</Typography>
+            <Typography
+              component="h1"
+              variant="h1"
+              id="categoria-produto-title"
+            >
+              Editar categoria de produto
+            </Typography>
             <Typography variant="body1">
               Edite as informações da categoria dos seus produtos
             </Typography>
           </Stack>
-          <Stack gap={1} maxWidth={600}>
+          <Stack
+            gap={1}
+            maxWidth={600}
+            component="section"
+            aria-labelledby="categoria-produto-title"
+          >
             {(isLoading || !categoriaProduto) && <CircularProgress />}
             {!isLoading && categoriaProduto && (
               <CategoriaProdutoForm

@@ -4,7 +4,6 @@ import {
   Box,
   Card,
   CardContent,
-  CircularProgress,
   Divider,
   Stack,
   Typography,
@@ -12,6 +11,7 @@ import {
 import { useParams } from "next/navigation";
 import TitleValueComponent from "@/components/generics/TitleValueComponent";
 import { DateFromISO } from "@/util/date";
+import CustomLoader from "@/components/generics/CustomLoader";
 
 export default function CategoriaProduto() {
   const params = useParams();
@@ -27,11 +27,15 @@ export default function CategoriaProduto() {
   return (
     <MainLayout>
       <Box p={3}>
-        <Typography component="h1" variant="h1">
+        <Typography
+          component="h1"
+          variant="h1"
+          aria-label="Informações da categoria de produto"
+        >
           Informações da categoria de produto
         </Typography>
         <Stack gap={2} marginTop={2}>
-          {isLoading && <CircularProgress />}
+          {isLoading && <CustomLoader />}
           {!isLoading && !!categoriaProduto && (
             <Card>
               <CardContent>
@@ -49,11 +53,13 @@ export default function CategoriaProduto() {
 }
 
 function InformacoesGerais({ categoriaProduto }) {
-  if (!categoriaProduto) return;
+  if (!categoriaProduto) return null;
 
   return (
-    <Stack gap={2}>
-      <Typography variant="h3">Informações gerais</Typography>
+    <Stack gap={2} component="section" aria-labelledby="informacoes-gerais">
+      <Typography variant="h2" id="informacoes-gerais">
+        Informações gerais
+      </Typography>
       <Stack gap={1}>
         <TitleValueComponent title="Nome" value={categoriaProduto.nome} />
       </Stack>
@@ -62,14 +68,16 @@ function InformacoesGerais({ categoriaProduto }) {
 }
 
 function InformacoesRegistro({ categoriaProduto }) {
-  if (!categoriaProduto) return;
+  if (!categoriaProduto) return null;
 
   const dataRegistro = DateFromISO(categoriaProduto.created_at);
   const dataUltimaAtualizacao = DateFromISO(categoriaProduto.updated_at);
 
   return (
-    <Stack gap={2}>
-      <Typography variant="h3">Informações de registro</Typography>
+    <Stack gap={2} component="section" aria-labelledby="informacoes-registro">
+      <Typography variant="h2" id="informacoes-registro">
+        Informações de registro
+      </Typography>
       <Stack gap={1}>
         <TitleValueComponent title="Data de registro" value={dataRegistro} />
         <TitleValueComponent

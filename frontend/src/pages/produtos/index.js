@@ -1,8 +1,8 @@
+import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import RegistroProdutoEstoqueModal from "@/components/produto/RegistroProdutoEstoqueModal";
-import EstoqueProdutoModal from "@/components/produto/RegistroProdutoEstoqueModal";
 import { useCategoriaProduto } from "@/hooks/categorias_produto";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProdutos } from "@/hooks/produtos";
@@ -10,13 +10,7 @@ import { DateFromISO } from "@/util/date";
 import { formatPrecoReal } from "@/util/numbers";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
 import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -170,24 +164,12 @@ export default function Produtos() {
   return (
     <MainLayout>
       <Box p={3}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          flexWrap="wrap"
-          gap={1}
-        >
-          <Typography variant="h1">Produtos</Typography>
-          <Button
-            startIcon={<AddOutlined />}
-            color="primary"
-            variant="contained"
-            onClick={handleRedirectProdutoAdd}
-          >
-            Novo produto
-          </Button>
-        </Stack>
-        <Stack paddingTop={2}>
+        <CustomHeaderPage
+          title="Produtos"
+          buttonLabel="Novo produto"
+          action={handleRedirectProdutoAdd}
+        />
+        <Stack component="section" paddingTop={2}>
           {isLoading && <CircularProgress />}
           {!isLoading && (
             <CustomDataGrid
@@ -211,7 +193,10 @@ export default function Produtos() {
 
 function NomeRow({ nome, produtoId }) {
   return (
-    <CustomLink href={`/produtos/${produtoId}`}>
+    <CustomLink
+      href={`/produtos/${produtoId}`}
+      ariaLabel="Ir para a página do produto"
+    >
       <Typography variant="body2" title={nome} color="primary">
         {nome}
       </Typography>
@@ -229,7 +214,10 @@ function CategoriaRow({ categoriaId }) {
   if (isLoading || !categoria) return <CircularProgress />;
 
   return (
-    <CustomLink href={`/categorias-produto/${categoriaId}`}>
+    <CustomLink
+      href={`/categorias-produto/${categoriaId}`}
+      ariaLabel="Ir para a página da categoria de produto"
+    >
       <Typography variant="body2" title={categoria.nome} color="primary">
         {categoria.nome || "-"}
       </Typography>
@@ -247,7 +235,10 @@ function FornecedorRow({ fornecedorId }) {
   if (isLoading || !fornecedor) return <CircularProgress />;
 
   return (
-    <CustomLink href={`/fornecedores/${fornecedorId}`}>
+    <CustomLink
+      href={`/fornecedores/${fornecedorId}`}
+      ariaLabel="Ir para a página do fornecedor"
+    >
       <Typography variant="body2" title={fornecedor.nome} color="primary">
         {fornecedor.nome || "-"}
       </Typography>
