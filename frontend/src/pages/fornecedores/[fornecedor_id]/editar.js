@@ -47,26 +47,26 @@ export default function FornecedorEditar() {
 
   return (
     <MainLayout>
-      {(isLoading || !fornecedor) && <CircularProgress />}
-      {!isLoading && fornecedor && (
-        <Box>
-          <Stack gap={3}>
-            <Stack gap={1}>
-              <Typography variant="h1">Editar fornecedor</Typography>
-              <Typography variant="body1">
-                Edite as informações do fornecedor parceiro
-              </Typography>
-            </Stack>
-            <Stack gap={1} maxWidth={600}>
+      <Box>
+        <Stack gap={3}>
+          <Stack gap={1}>
+            <Typography variant="h1">Editar fornecedor</Typography>
+            <Typography variant="body1">
+              Edite as informações do fornecedor parceiro
+            </Typography>
+          </Stack>
+          <Stack gap={1} maxWidth={600}>
+            {(isLoading || !fornecedor) && <CircularProgress />}
+            {!isLoading && fornecedor && (
               <FornecedorForm
                 handleSubmit={handleSubmit}
                 handleRedirect={handleRedirect}
                 initialValues={initialValues}
               />
-            </Stack>
+            )}
           </Stack>
-        </Box>
-      )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

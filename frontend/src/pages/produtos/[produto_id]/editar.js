@@ -42,27 +42,27 @@ export default function ProdutoEditar() {
 
   return (
     <MainLayout>
-      {(isLoading || !produto) && <CircularProgress />}
-      {!isLoading && produto && (
-        <Box>
-          <Stack gap={3}>
-            <Stack gap={1}>
-              <Typography variant="h1">Editar produto</Typography>
-              <Typography variant="body1">
-                Edite as informações do produto em seu estoque
-              </Typography>
-            </Stack>
-            <Stack gap={1} maxWidth={600}>
+      <Box>
+        <Stack gap={3}>
+          <Stack gap={1}>
+            <Typography variant="h1">Editar produto</Typography>
+            <Typography variant="body1">
+              Edite as informações do produto em seu estoque
+            </Typography>
+          </Stack>
+          <Stack gap={1} maxWidth={600}>
+            {(isLoading || !produto) && <CircularProgress />}
+            {!isLoading && produto && (
               <ProdutoForm
                 handleSubmit={handleSubmit}
                 handleRedirect={handleRedirect}
                 initialValues={initialValues}
                 action="edit"
               />
-            </Stack>
+            )}
           </Stack>
-        </Box>
-      )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

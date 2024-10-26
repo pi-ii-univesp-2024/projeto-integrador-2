@@ -84,35 +84,35 @@ export default function CategoriasProduto() {
 
   return (
     <MainLayout>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
-        <Box>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={1}
+      <Box>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          gap={1}
+        >
+          <Typography variant="h1">Categorias produto</Typography>
+          <Button
+            startIcon={<AddOutlined />}
+            color="primary"
+            variant="contained"
+            onClick={handleRedirectCategoriaProdutoAdd}
           >
-            <Typography variant="h1">Categorias produto</Typography>
-            <Button
-              startIcon={<AddOutlined />}
-              color="primary"
-              variant="contained"
-              onClick={handleRedirectCategoriaProdutoAdd}
-            >
-              Nova categoria
-            </Button>
-          </Stack>
-          <Stack paddingTop={2}>
+            Nova categoria
+          </Button>
+        </Stack>
+        <Stack paddingTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && (
             <CustomDataGrid
               rows={categoriasProduto || []}
               columns={columns}
               loading={isLoading}
             />
-          </Stack>
-        </Box>
-      )}
+          )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

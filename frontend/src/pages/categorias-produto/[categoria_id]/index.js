@@ -30,9 +30,9 @@ export default function CategoriaProduto() {
         <Typography component="h1" variant="h1">
           Informações da categoria de produto
         </Typography>
-        {isLoading && <CircularProgress />}
-        {!isLoading && !!categoriaProduto && (
-          <Stack gap={2} marginTop={2}>
+        <Stack gap={2} marginTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && !!categoriaProduto && (
             <Card>
               <CardContent>
                 <Stack gap={2} divider={<Divider flexItem />}>
@@ -41,8 +41,8 @@ export default function CategoriaProduto() {
                 </Stack>
               </CardContent>
             </Card>
-          </Stack>
-        )}
+          )}
+        </Stack>
       </Box>
     </MainLayout>
   );

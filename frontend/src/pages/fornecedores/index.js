@@ -25,8 +25,8 @@ export default function Fornecedores() {
   };
 
   const handleRedirectFornecedorEdit = (fornecedorId) => {
-    router.push(`/fornecedores/${fornecedorId}/editar`)
-  }
+    router.push(`/fornecedores/${fornecedorId}/editar`);
+  };
 
   const columns = [
     {
@@ -181,35 +181,35 @@ export default function Fornecedores() {
   ];
   return (
     <MainLayout>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
-        <Box>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            gap={1}
+      <Box>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          flexWrap="wrap"
+          gap={1}
+        >
+          <Typography variant="h1">Fornecedores</Typography>
+          <Button
+            startIcon={<AddOutlined />}
+            color="primary"
+            variant="contained"
+            onClick={handleRedirectFornecedoresAdd}
           >
-            <Typography variant="h1">Fornecedores</Typography>
-            <Button
-              startIcon={<AddOutlined />}
-              color="primary"
-              variant="contained"
-              onClick={handleRedirectFornecedoresAdd}
-            >
-              Novo fornecedor
-            </Button>
-          </Stack>
-          <Stack paddingTop={2}>
+            Novo fornecedor
+          </Button>
+        </Stack>
+        <Stack paddingTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && (
             <CustomDataGrid
               rows={fornecedores || []}
               columns={columns}
               loading={isLoading}
             />
-          </Stack>
-        </Box>
-      )}
+          )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

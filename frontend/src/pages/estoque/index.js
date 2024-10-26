@@ -52,19 +52,19 @@ export default function Estoque() {
 
   return (
     <MainLayout>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
-        <Box>
-          <Typography variant="h1">Estoque e movimentações</Typography>
-          <Stack paddingTop={2}>
+      <Box>
+        <Typography variant="h1">Estoque e movimentações</Typography>
+        <Stack paddingTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && (
             <CustomDataGrid
               rows={estoques || []}
               columns={columns}
               loading={isLoading}
             />
-          </Stack>
-        </Box>
-      )}
+          )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

@@ -31,9 +31,9 @@ export default function Produto() {
         <Typography component="h1" variant="h1">
           Informações do produto
         </Typography>
-        {isLoading && <CircularProgress />}
-        {!isLoading && !!produto && (
-          <Stack gap={2} marginTop={2}>
+        <Stack gap={2} marginTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && !!produto && (
             <Card>
               <CardContent>
                 <Stack gap={2} divider={<Divider flexItem />}>
@@ -43,8 +43,8 @@ export default function Produto() {
                 </Stack>
               </CardContent>
             </Card>
-          </Stack>
-        )}
+          )}
+        </Stack>
       </Box>
     </MainLayout>
   );
@@ -55,39 +55,42 @@ function InformacoesGerais({ produto }) {
 
   const fornecedorId = produto.fornecedor;
   const queryOptionsFornecedor = { enabled: !!fornecedorId };
-  const { data: fornecedor } = useFornecedor(
+  const { data: fornecedor, isLoading: fornecedorIsLoading } = useFornecedor(
     fornecedorId,
     queryOptionsFornecedor
   );
 
   const categoriaId = produto.categoria;
   const queryOptionsCategoria = { enabled: !!categoriaId };
-  const { data: categoria } = useCategoriaProduto(
-    categoriaId,
-    queryOptionsCategoria
-  );
+  const { data: categoria, isLoading: categoriaIsLoading } =
+    useCategoriaProduto(categoriaId, queryOptionsCategoria);
+
+  const isLoading = fornecedorIsLoading || categoriaIsLoading;
 
   return (
     <Stack gap={2}>
       <Typography variant="h3">Informações gerais</Typography>
-      <Stack gap={1}>
-        <TitleValueComponent title="Nome" value={produto.nome} />
-        <TitleValueComponent title="Marca" value={produto.marca} />
-        <TitleValueComponent
-          title="Fornecedor"
-          value={fornecedor?.nome}
-          link={`/fornecedores/${fornecedorId}`}
-        />
-        <TitleValueComponent
-          title="Categoria"
-          value={categoria?.nome}
-          link={`/categorias-produto/${categoriaId}`}
-        />
-        <TitleValueComponent
-          title="Descrição"
-          value={produto.descricao || "-"}
-        />
-      </Stack>
+      {isLoading && <CircularProgress />}
+      {!isLoading && (
+        <Stack gap={1}>
+          <TitleValueComponent title="Nome" value={produto.nome} />
+          <TitleValueComponent title="Marca" value={produto.marca} />
+          <TitleValueComponent
+            title="Fornecedor"
+            value={fornecedor?.nome}
+            link={`/fornecedores/${fornecedorId}`}
+          />
+          <TitleValueComponent
+            title="Categoria"
+            value={categoria?.nome}
+            link={`/categorias-produto/${categoriaId}`}
+          />
+          <TitleValueComponent
+            title="Descrição"
+            value={produto.descricao || "-"}
+          />
+        </Stack>
+      )}
     </Stack>
   );
 }

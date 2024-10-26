@@ -3,7 +3,10 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { useEditProduto } from "@/hooks/produtos";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useParams } from "next/navigation";
-import { useCategoriaProduto, useEditCategoriaProduto } from "@/hooks/categorias_produto";
+import {
+  useCategoriaProduto,
+  useEditCategoriaProduto,
+} from "@/hooks/categorias_produto";
 import CategoriaProdutoForm from "@/components/categoria-produto/CategoriaProdutoForm";
 
 export default function CategoriaProdutoEditar() {
@@ -35,27 +38,27 @@ export default function CategoriaProdutoEditar() {
 
   return (
     <MainLayout>
-      {(isLoading || !categoriaProduto) && <CircularProgress />}
-      {!isLoading && categoriaProduto && (
-        <Box>
-          <Stack gap={3}>
-            <Stack gap={1}>
-              <Typography variant="h1">Editar categoria de produto</Typography>
-              <Typography variant="body1">
-                Edite as informações da categoria dos seus produtos
-              </Typography>
-            </Stack>
-            <Stack gap={1} maxWidth={600}>
+      <Box>
+        <Stack gap={3}>
+          <Stack gap={1}>
+            <Typography variant="h1">Editar categoria de produto</Typography>
+            <Typography variant="body1">
+              Edite as informações da categoria dos seus produtos
+            </Typography>
+          </Stack>
+          <Stack gap={1} maxWidth={600}>
+            {(isLoading || !categoriaProduto) && <CircularProgress />}
+            {!isLoading && categoriaProduto && (
               <CategoriaProdutoForm
                 handleSubmit={handleSubmit}
                 handleRedirect={handleRedirect}
                 initialValues={initialValues}
                 action="edit"
               />
-            </Stack>
+            )}
           </Stack>
-        </Box>
-      )}
+        </Stack>
+      </Box>
     </MainLayout>
   );
 }

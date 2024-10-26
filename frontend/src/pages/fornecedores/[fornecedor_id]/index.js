@@ -32,9 +32,9 @@ export default function Fornecedor() {
         <Typography component="h1" variant="h1">
           Informações do fornecedor
         </Typography>
-        {isLoading && <CircularProgress />}
-        {!isLoading && !!fornecedor && (
-          <Stack gap={2} marginTop={2}>
+        <Stack gap={2} marginTop={2}>
+          {isLoading && <CircularProgress />}
+          {!isLoading && !!fornecedor && (
             <Card>
               <CardContent>
                 <Stack gap={2} divider={<Divider flexItem />}>
@@ -45,8 +45,8 @@ export default function Fornecedor() {
                 </Stack>
               </CardContent>
             </Card>
-          </Stack>
-        )}
+          )}
+        </Stack>
       </Box>
     </MainLayout>
   );
@@ -97,7 +97,10 @@ function InformacoesEndereco({ fornecedor }) {
         />
         <TitleValueComponent title="Bairro" value={fornecedor.bairro || "-"} />
         <TitleValueComponent title="Nº" value={fornecedor.numero || "-"} />
-        <TitleValueComponent title="Complemento" value={fornecedor.complemento || "-"} />
+        <TitleValueComponent
+          title="Complemento"
+          value={fornecedor.complemento || "-"}
+        />
         <TitleValueComponent title="Cidade" value={fornecedor.cidade || "-"} />
         <TitleValueComponent title="Estado" value={fornecedor.estado || "-"} />
         <TitleValueComponent title="CEP" value={cepFormatado || "-"} />
