@@ -7,7 +7,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
-import { useState } from "react";
+import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
+import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
 import {
   List,
   ListItem,
@@ -50,14 +51,24 @@ export default function Sidebar() {
         <Divider />
         <SidebarItem Icon={HomeOutlined} label="Home" path="/" />
         <SidebarItem
+          Icon={InventoryOutlinedIcon}
+          label="Estoque e movimentações"
+          path="/estoque"
+        />
+        <SidebarItem
           Icon={Inventory2OutlinedIcon}
           label="Produtos"
           path="/produtos"
         />
         <SidebarItem
-          Icon={InventoryOutlinedIcon}
-          label="Estoque e movimentações"
-          path="/estoque"
+          Icon={LoyaltyOutlinedIcon}
+          label="Categorias de produto"
+          path="/categorias-produto"
+        />
+        <SidebarItem
+          Icon={HandshakeOutlinedIcon}
+          label="Fornecedores"
+          path="/fornecedores"
         />
       </Drawer>
     </Box>
