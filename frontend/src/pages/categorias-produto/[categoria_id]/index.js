@@ -26,7 +26,7 @@ export default function CategoriaProduto() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Typography component="h1" variant="h1">
           Informações da categoria de produto
         </Typography>

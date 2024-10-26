@@ -169,7 +169,7 @@ export default function Produtos() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Stack
           direction="row"
           alignItems="center"

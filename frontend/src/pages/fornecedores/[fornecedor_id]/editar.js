@@ -47,7 +47,7 @@ export default function FornecedorEditar() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={2}>
         <Stack gap={3}>
           <Stack gap={1}>
             <Typography variant="h1">Editar fornecedor</Typography>

@@ -42,7 +42,7 @@ export default function ProdutoEditar() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Stack gap={3}>
           <Stack gap={1}>
             <Typography variant="h1">Editar produto</Typography>

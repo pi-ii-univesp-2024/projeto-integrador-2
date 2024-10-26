@@ -181,7 +181,7 @@ export default function Fornecedores() {
   ];
   return (
     <MainLayout>
-      <Box>
+      <Box p={2}>
         <Stack
           direction="row"
           alignItems="center"

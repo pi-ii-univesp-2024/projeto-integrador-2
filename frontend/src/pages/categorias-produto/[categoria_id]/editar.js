@@ -38,7 +38,7 @@ export default function CategoriaProdutoEditar() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Stack gap={3}>
           <Stack gap={1}>
             <Typography variant="h1">Editar categoria de produto</Typography>

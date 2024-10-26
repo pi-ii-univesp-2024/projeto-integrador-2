@@ -52,7 +52,7 @@ export default function Estoque() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Typography variant="h1">Estoque e movimentações</Typography>
         <Stack paddingTop={2}>
           {isLoading && <CircularProgress />}

@@ -36,7 +36,7 @@ export default function FornecedorCriar() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={2}>
         <Stack gap={3}>
           <Stack gap={1}>
             <Typography variant="h1">Adicionar fornecedor</Typography>

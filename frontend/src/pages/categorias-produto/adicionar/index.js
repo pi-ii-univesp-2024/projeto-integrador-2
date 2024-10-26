@@ -24,7 +24,7 @@ export default function CategoriaProdutoCriar() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Stack gap={3}>
           <Stack gap={1}>
             <Typography variant="h1">Adicionar categoria de produto</Typography>

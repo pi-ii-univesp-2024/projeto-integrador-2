@@ -27,7 +27,7 @@ export default function Produto() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Typography component="h1" variant="h1">
           Informações do produto
         </Typography>

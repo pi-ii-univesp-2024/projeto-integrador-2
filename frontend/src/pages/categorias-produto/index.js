@@ -84,7 +84,7 @@ export default function CategoriasProduto() {
 
   return (
     <MainLayout>
-      <Box>
+      <Box p={3}>
         <Stack
           direction="row"
           alignItems="center"
