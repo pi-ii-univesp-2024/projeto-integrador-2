@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useParams } from "next/navigation";
 import TitleValueComponent from "@/components/generics/TitleValueComponent";
+import { CEPMask, CNPJMask } from "@/util/masks";
 
 export default function Fornecedor() {
   const params = useParams();
@@ -38,6 +39,8 @@ export default function Fornecedor() {
               <CardContent>
                 <Stack gap={2} divider={<Divider flexItem />}>
                   <InformacoesGerais fornecedor={fornecedor} />
+                  <InformacoesContato fornecedor={fornecedor} />
+                  <InformacoesEndereco fornecedor={fornecedor} />
                   <InformacoesRegistro fornecedor={fornecedor} />
                 </Stack>
               </CardContent>
@@ -52,16 +55,52 @@ export default function Fornecedor() {
 function InformacoesGerais({ fornecedor }) {
   if (!fornecedor) return;
 
-  const telefoneFormatado = formatPhoneNumber(fornecedor.telefone) || "-";
-
+  const cnpjFormatado = CNPJMask(fornecedor.cnpj);
   return (
     <Stack gap={2}>
       <Typography variant="h3">Informações gerais</Typography>
       <Stack gap={1}>
         <TitleValueComponent title="Nome" value={fornecedor.nome} />
-        <TitleValueComponent title="E-mail" value={fornecedor.email || '-'} />
+        <TitleValueComponent title="CNPJ" value={cnpjFormatado || "-"} />
+      </Stack>
+    </Stack>
+  );
+}
+
+function InformacoesContato({ fornecedor }) {
+  if (!fornecedor) return;
+
+  const telefoneFormatado = formatPhoneNumber(fornecedor.telefone) || "-";
+
+  return (
+    <Stack gap={2}>
+      <Typography variant="h3">Informações de contato</Typography>
+      <Stack gap={1}>
+        <TitleValueComponent title="E-mail" value={fornecedor.email || "-"} />
         <TitleValueComponent title="Telefone" value={telefoneFormatado} />
-        <TitleValueComponent title="Endereço" value={fornecedor.endereco || '-'} />
+      </Stack>
+    </Stack>
+  );
+}
+
+function InformacoesEndereco({ fornecedor }) {
+  if (!fornecedor) return;
+
+  const cepFormatado = CEPMask(fornecedor.cep);
+  return (
+    <Stack gap={2}>
+      <Typography variant="h3">Informações de endereço</Typography>
+      <Stack gap={1}>
+        <TitleValueComponent
+          title="Logradouro"
+          value={fornecedor.logradouro || "-"}
+        />
+        <TitleValueComponent title="Bairro" value={fornecedor.bairro || "-"} />
+        <TitleValueComponent title="Nº" value={fornecedor.numero || "-"} />
+        <TitleValueComponent title="Complemento" value={fornecedor.complemento || "-"} />
+        <TitleValueComponent title="Cidade" value={fornecedor.cidade || "-"} />
+        <TitleValueComponent title="Estado" value={fornecedor.estado || "-"} />
+        <TitleValueComponent title="CEP" value={cepFormatado || "-"} />
       </Stack>
     </Stack>
   );
