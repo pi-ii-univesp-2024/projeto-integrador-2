@@ -1,16 +1,16 @@
 import { DataGrid } from "@mui/x-data-grid";
 
 export default function CustomDataGrid({
-  rows,
-  columns,
+  rows = [],
+  columns = [],
   pageSize = 10,
   pageSizeOptions = [10, 25, 50, 100],
   isLoading,
 }) {
   return (
     <DataGrid
-      rows={rows || []}
-      columns={columns || []}
+      rows={rows}
+      columns={columns}
       pageSize={pageSize}
       initialState={{ pagination: { paginationModel: { pageSize: pageSize } } }}
       pageSizeOptions={pageSizeOptions}
@@ -33,6 +33,8 @@ export default function CustomDataGrid({
             outline: "none !important",
           },
         "& .MuiDataGrid-cell": {
+          display: 'flex',
+          alignItems:'center',
           "& *": {
             overflow: "hidden",
             textOverflow: "ellipsis",
