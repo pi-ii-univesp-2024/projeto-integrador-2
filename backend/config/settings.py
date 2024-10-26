@@ -65,8 +65,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'django_filters',
     *LOCAL_APPS,
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+}
 
 # Middleware
 MIDDLEWARE = [

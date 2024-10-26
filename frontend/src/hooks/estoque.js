@@ -4,13 +4,19 @@ import { useData } from "./base_hook";
 import queryClient from "@/config/queryClient";
 
 // Hook para buscar todos os estoques
-export const useEstoques = (options = {}) => {
+export const useEstoques = (params = {}, options = {}) => {
   const fetchEstoque = async () => {
-    const response = await api.get("estoques/");
+    const response = await api.get("estoques/", { params });
     return response.data;
   };
 
-  return useData(["estoques"], fetchEstoque, options);
+  const query = useData(["estoques", params], fetchEstoque, options);
+
+  return {
+    ...query,
+    data: query.data?.results || [],
+    count: query.data?.count || 0,
+  };
 };
 
 export const useCreateEstoque = () => {
