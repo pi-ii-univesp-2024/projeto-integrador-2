@@ -4,13 +4,23 @@ import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
 
 // Hook para buscar todas as categorias de produtos
-export const useCategoriasProduto = (options = {}) => {
+export const useCategoriasProduto = (params = {}, options = {}) => {
   const fetchCategoriasProduto = async () => {
-    const response = await api.get("categorias_produtos/");
+    const response = await api.get("categorias_produtos/", { params });
     return response.data;
   };
 
-  return useData(["categorias_produtos"], fetchCategoriasProduto, options);
+  const query = useData(
+    ["categorias_produtos", params],
+    fetchCategoriasProduto,
+    options
+  );
+
+  return {
+    ...query,
+    data: query.data?.results || [],
+    count: query.data?.count || 0,
+  };
 };
 
 // Hook para buscar uma única categoria de produto

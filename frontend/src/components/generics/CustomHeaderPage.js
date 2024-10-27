@@ -14,15 +14,17 @@ export default function CustomHeaderPage({ title, buttonLabel, action }) {
       <Typography component="h1" variant="h1" aria-label={title}>
         {title}
       </Typography>
-      <Button
-        startIcon={<AddOutlined />}
-        color="primary"
-        variant="contained"
-        aria-label={buttonLabel}
-        onClick={() => action && action()}
-      >
-        {buttonLabel}
-      </Button>
+      {action && (
+        <Button
+          startIcon={<AddOutlined />}
+          color="primary"
+          variant="contained"
+          aria-label={buttonLabel}
+          onClick={() => action()}
+        >
+          {buttonLabel}
+        </Button>
+      )}
     </Stack>
   );
 }

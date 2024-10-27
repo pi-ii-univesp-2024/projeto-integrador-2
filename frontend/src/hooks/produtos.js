@@ -4,13 +4,19 @@ import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
 
 // Hook para buscar todos os produtos
-export const useProdutos = (options = {}) => {
+export const useProdutos = (params = {}, options = {}) => {
   const fetchProdutos = async () => {
-    const response = await api.get("produtos/");
+    const response = await api.get("produtos/", { params });
     return response.data;
   };
 
-  return useData(["produtos"], fetchProdutos, options);
+  const query = useData(["produtos", params], fetchProdutos, options);
+
+  return {
+    ...query,
+    data: query.data?.results || [],
+    count: query.data?.count || 0,
+  };
 };
 
 // Hook para buscar um único produto

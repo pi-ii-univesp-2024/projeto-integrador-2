@@ -1,19 +1,36 @@
+import CustomSearchInput from "@/components/forms/CustomSearchInput";
 import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
+import CustomLoader from "@/components/generics/CustomLoader";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
+import useDebounce from "@/hooks/debounce";
 import { useFornecedores } from "@/hooks/fornecedor";
 import { DateFromISO } from "@/util/date";
 import { CEPMask, CNPJMask } from "@/util/masks";
+import { handleSortModel } from "@/util/sort";
 import { formatPhoneNumber } from "@/util/telefone";
 import { ModeEditOutlineOutlined } from "@mui/icons-material";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Fornecedores() {
-  const { data: fornecedores, isLoading } = useFornecedores();
+  const [offset, setOffset] = useState(0);
+  const [ordering, setOrdering] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchDebounced = useDebounce(searchValue, 500);
+
+  const params = { limit: 10, offset, ordering, search: searchDebounced };
+
+  const { data: fornecedores, count, isLoading } = useFornecedores(params);
   const router = useRouter();
+
+  const handleSortModelChange = (order) => {
+    setOrdering(handleSortModel(order));
+  };
 
   const handleRedirectFornecedoresAdd = () => {
     router.push("/fornecedores/adicionar");
@@ -182,13 +199,24 @@ export default function Fornecedores() {
           buttonLabel="Novo fornecedor"
           action={handleRedirectFornecedoresAdd}
         />
-        <Stack paddingTop={2}>
-          {isLoading && <CircularProgress />}
+        <Stack component="section" paddingTop={2} gap={2}>
+          <Box maxWidth={300}>
+            <CustomSearchInput
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              placeholder="Buscar por nome, e-mail, telefone, CNPJ, endereço"
+            />
+          </Box>
+          {isLoading && <CustomLoader />}
           {!isLoading && (
             <CustomDataGrid
               rows={fornecedores || []}
               columns={columns}
               loading={isLoading}
+              rowCount={count}
+              offset={offset}
+              setOffset={setOffset}
+              handleSortModelChange={handleSortModelChange}
             />
           )}
         </Stack>

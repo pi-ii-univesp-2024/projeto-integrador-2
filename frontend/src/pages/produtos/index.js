@@ -1,23 +1,40 @@
+import CustomSearchInput from "@/components/forms/CustomSearchInput";
 import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
+import CustomLoader from "@/components/generics/CustomLoader";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import RegistroProdutoEstoqueModal from "@/components/produto/RegistroProdutoEstoqueModal";
 import { useCategoriaProduto } from "@/hooks/categorias_produto";
+import useDebounce from "@/hooks/debounce";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProdutos } from "@/hooks/produtos";
 import { DateFromISO } from "@/util/date";
 import { formatPrecoReal } from "@/util/numbers";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
+import { handleSortModel } from "@/util/sort";
 import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 export default function Produtos() {
-  const { data: produtos, isLoading } = useProdutos();
+  const [offset, setOffset] = useState(0);
+  const [ordering, setOrdering] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchDebounced = useDebounce(searchValue, 500);
+
+  const params = { limit: 10, offset, ordering, search: searchDebounced };
+
+  const { data: produtos, count, isLoading } = useProdutos(params);
   const router = useRouter();
+
+  const handleSortModelChange = (order) => {
+    setOrdering(handleSortModel(order));
+  };
 
   const [produtoId, setProdutoId] = useState();
   const [openRegistroProdutoEstoqueModal, setOpenRegistroProdutoEstoqueModal] =
@@ -169,13 +186,24 @@ export default function Produtos() {
           buttonLabel="Novo produto"
           action={handleRedirectProdutoAdd}
         />
-        <Stack component="section" paddingTop={2}>
-          {isLoading && <CircularProgress />}
+        <Stack component="section" paddingTop={2} gap={2}>
+          <Box maxWidth={300}>
+            <CustomSearchInput
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              placeholder="Buscar por nome, categoria, marca e fornecedor"
+            />
+          </Box>
+          {isLoading && <CustomLoader />}
           {!isLoading && (
             <CustomDataGrid
               rows={produtos || []}
               columns={columns}
               loading={isLoading}
+              rowCount={count}
+              offset={offset}
+              setOffset={setOffset}
+              handleSortModelChange={handleSortModelChange}
             />
           )}
         </Stack>
@@ -211,7 +239,7 @@ function CategoriaRow({ categoriaId }) {
     queryOptions
   );
 
-  if (isLoading || !categoria) return <CircularProgress />;
+  if (isLoading || !categoria) return <CustomLoader />;
 
   return (
     <CustomLink
@@ -232,7 +260,7 @@ function FornecedorRow({ fornecedorId }) {
     queryOptions
   );
 
-  if (isLoading || !fornecedor) return <CircularProgress />;
+  if (isLoading || !fornecedor) return <CustomLoader />;
 
   return (
     <CustomLink

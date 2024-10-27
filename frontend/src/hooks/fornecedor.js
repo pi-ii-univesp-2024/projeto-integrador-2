@@ -4,13 +4,19 @@ import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
 
 // Hook para buscar todos os fornecedores
-export const useFornecedores = (options = {}) => {
+export const useFornecedores = (params = {}, options = {}) => {
   const fetchFornecedores = async () => {
-    const response = await api.get("fornecedores/");
+    const response = await api.get("fornecedores/", { params });
     return response.data;
   };
 
-  return useData(["fornecedores"], fetchFornecedores, options);
+  const query = useData(["fornecedores"], params, fetchFornecedores, options);
+
+  return {
+    ...query,
+    data: query.data?.results || [],
+    count: query.data?.count || 0,
+  };
 };
 
 // Hook para buscar um único fornecedor
@@ -54,7 +60,7 @@ export const useDeleteFornecedor = (id) => {
   return useMutation({
     mutationFn: async () => {
       await api.delete(`fornecedores/${id}/`);
-      return id; 
+      return id;
     },
     onSuccess: (deletedId) => {
       queryClient.invalidateQueries(["fornecedores"]);

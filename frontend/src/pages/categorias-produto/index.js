@@ -1,18 +1,34 @@
+import CustomSearchInput from "@/components/forms/CustomSearchInput";
 import CustomHeaderPage from "@/components/generics/CustomHeaderPage";
 import CustomLink from "@/components/generics/CustomLink";
 import CustomLoader from "@/components/generics/CustomLoader";
 import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import { useCategoriasProduto } from "@/hooks/categorias_produto";
+import useDebounce from "@/hooks/debounce";
 import { DateFromISO } from "@/util/date";
+import { handleSortModel } from "@/util/sort";
 import { ModeEditOutlineOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function CategoriasProduto() {
-  const { data: categoriasProduto, isLoading } = useCategoriasProduto();
+  const [offset, setOffset] = useState(0);
+  const [ordering, setOrdering] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
+  const searchDebounced = useDebounce(searchValue, 500);
+
+  const params = { limit: 10, offset, ordering, search: searchDebounced };
+
+  const { data: categoriasProduto, count, isLoading } = useCategoriasProduto(params);
   const router = useRouter();
+
+  const handleSortModelChange = (order) => {
+    setOrdering(handleSortModel(order));
+  };
 
   const handleRedirectCategoriaProdutoAdd = () => {
     router.push("/categorias-produto/adicionar");
@@ -89,13 +105,24 @@ export default function CategoriasProduto() {
           buttonLabel="Nova categoria"
           action={handleRedirectCategoriaProdutoAdd}
         />
-        <Stack component="section" paddingTop={2}>
+        <Stack component="section" paddingTop={2} gap={2}>
+          <Box maxWidth={300}>
+            <CustomSearchInput
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              placeholder="Buscar por nome"
+            />
+          </Box>
           {isLoading && <CustomLoader />}
           {!isLoading && (
             <CustomDataGrid
               rows={categoriasProduto || []}
               columns={columns}
               loading={isLoading}
+              rowCount={count}
+              offset={offset}
+              setOffset={setOffset}
+              handleSortModelChange={handleSortModelChange}
             />
           )}
         </Stack>
