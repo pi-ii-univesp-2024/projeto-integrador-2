@@ -13,9 +13,10 @@ export default function CustomFormButtons({
   cancelStartIcon: CancelStartIcon,
   cancelEndIcon: CancelEndIcon,
   cancelAction,
+  justifyContent = 'flex-start'
 }) {
   return (
-    <Stack direction="row" gap={2}>
+    <Stack direction="row" justifyContent={justifyContent} gap={2}>
       {cancelAction && (
         <Button
           color={cancelColor}

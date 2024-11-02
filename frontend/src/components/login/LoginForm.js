@@ -46,7 +46,7 @@ export default function LoginForm() {
           <Stack gap={2}>
             <CustomTextField name="username" label="Usuário" />
             <CustomTextField name="password" label="Senha" type="password" />
-            <CustomFormButtons confirmDisabled={isSubmitting || !isValid} />
+            <CustomFormButtons confirmDisabled={isSubmitting || !isValid} confirmTitle="Entrar" justifyContent="flex-end" />
           </Stack>
         </Form>
       )}
