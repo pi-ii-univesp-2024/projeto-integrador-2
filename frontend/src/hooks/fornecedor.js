@@ -10,7 +10,7 @@ export const useFornecedores = (params = {}, options = {}) => {
     return response.data;
   };
 
-  const query = useData(["fornecedores"], params, fetchFornecedores, options);
+  const query = useData(["fornecedores", params], fetchFornecedores, options);
 
   return {
     ...query,
