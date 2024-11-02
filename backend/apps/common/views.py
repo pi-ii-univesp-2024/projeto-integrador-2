@@ -1,10 +1,13 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import status, generics
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from .serializers import UserRegisterSerializer, UserSerializer
+from .serializers import UserSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+from django.utils.http import http_date
+from datetime import timedelta
+from django.utils import timezone
 
 
 class UserList(generics.ListAPIView):
@@ -17,46 +20,26 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
 
-@api_view(['POST'])
-def register(request):
-    serializer = UserRegisterSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        token = Token.objects.create(user=user)
-        return Response({'token': token.key}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
 
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            response = Response({
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'token': token.key
+                }
+            })
 
-@api_view(['POST'])
-def login_view(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    user = authenticate(request, username=username, password=password)
-
-    if user is not None:
-        login(request, user)
-        token, created = Token.objects.get_or_create(user=user)
-
-        user_data = {
-            'id': user.id, 
-            'email': user.email,  
-            'username': user.username,  
-            'role': user.role if hasattr(user, 'role') else None,
-        }
-
-        return Response({
-            'user': user_data,
-            'token': token.key
-        }, status=status.HTTP_200_OK)
-
-    return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def logout_view(request):
-    if request.user.is_authenticated and hasattr(request.user, 'auth_token'):
-        request.user.auth_token.delete()
-        logout(request)
-        return Response({"detail": "Logout realizado com sucesso."}, status=status.HTTP_200_OK)
-    else:
-        return Response({"detail": "Usuário não autenticado."}, status=status.HTTP_400_BAD_REQUEST)
+            expires = timezone.now() + timedelta(days=7)
+            response.set_cookie(key='token', value=token.key,
+                                httponly=True, expires=http_date(expires.timestamp()))
+            return response
+        else:
+            return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)

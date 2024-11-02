@@ -4,29 +4,25 @@ import * as Yup from "yup";
 import CustomTextField from "../forms/CustomTextField";
 import CustomFormButtons from "../forms/CustomFormButtons";
 import { useRouter } from "next/router";
-import { useLogin } from "@/hooks/account";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
   const router = useRouter();
-  const { mutateAsync: login } = useLogin();
 
   const handleSubmit = async (values, { setErrors }) => {
-    try {
-      await login(values);
+    const result = await signIn("credentials", {
+      redirect: false,
+      username: values.username,
+      password: values.password,
+    });
+
+    if (result.error) {
+      setErrors({
+        username: "Usuário incorreto",
+        password: "Senha incorreta",
+      });
+    } else {
       router.push("/");
-    } catch (error) {
-      if (error.response && error.response.data) {
-        const backendErrors = error.response.data;
-        setErrors({
-          username: backendErrors.username || "Usuário incorreto",
-          password: backendErrors.password || "Senha incorreta",
-        });
-      } else {
-        setErrors({
-          username: "Erro desconhecido",
-          password: "Erro desconhecido",
-        });
-      }
     }
   };
 
@@ -46,7 +42,11 @@ export default function LoginForm() {
           <Stack gap={2}>
             <CustomTextField name="username" label="Usuário" />
             <CustomTextField name="password" label="Senha" type="password" />
-            <CustomFormButtons confirmDisabled={isSubmitting || !isValid} confirmTitle="Entrar" justifyContent="flex-end" />
+            <CustomFormButtons
+              confirmDisabled={isSubmitting || !isValid}
+              confirmTitle="Entrar"
+              justifyContent="flex-end"
+            />
           </Stack>
         </Form>
       )}

@@ -1,18 +1,19 @@
-import Cookies from "js-cookie";
+import { getSession } from "next-auth/react";
 
-export const requireAuth = (context) => {
+const getSessionFromRequest = async (req) => {
+  const session = await getSession({ req });
+  return session;
+};
+
+export const requireAuth = async (context) => {
   const { req, res } = context;
-  const token = req ? req.cookies.token : Cookies.get("token");
+  const session = await getSessionFromRequest(req);
 
-  if (!token) {
-    if (res) {
-      res.writeHead(302, { Location: "/login" });
-      res.end();
-    } else {
-      window.location.href = "/login";
-    }
-    return { props: {} }; 
+  if (!session) {
+    res.writeHead(302, { Location: "/login" });
+    res.end();
+    return { props: {} };
   }
 
-  return { props: { token } }; 
+  return { props: { session } };
 };

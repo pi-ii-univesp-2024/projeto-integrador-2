@@ -1,13 +1,11 @@
 import { QueryClient } from "@tanstack/react-query";
+import { useAuthenticatedRequest } from "@/hooks/useAuthenticatedRequest";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // Define quanto tempo os dados são considerados frescos
-      staleTime: 5 * 60 * 1000, // 5 minutos
-      // Define por quanto tempo os dados ficam no cache após se tornarem obsoletos
-      cacheTime: 5 * 60 * 1000, // 5 minutos
-      // Refetch automático quando a janela é focada novamente
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 5 * 60 * 1000,
       refetchOnWindowFocus: true,
     },
   },

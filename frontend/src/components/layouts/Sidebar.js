@@ -21,7 +21,7 @@ import {
 import { HomeOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useSidebar } from "@/contexts/SidebarContext";
-import { useLogout } from "@/hooks/account";
+import { signOut } from "next-auth/react";
 
 export const SIDEBAR_WIDTH = 280;
 
@@ -140,14 +140,9 @@ function SidebarItem({ Icon, label, path }) {
 }
 
 function LogoutContainer() {
-  const { mutateAsync: logout } = useLogout();
-  const router = useRouter();
-
   const handleLogout = async () => {
-    await logout();
-    router.push("/login");
+    await signOut({ redirect: true, callbackUrl: "/login" });
   };
-
   return (
     <Stack onClick={handleLogout} sx={{ cursor: "pointer", p: 2 }}>
       <Typography>Sair</Typography>

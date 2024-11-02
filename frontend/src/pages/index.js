@@ -1,6 +1,5 @@
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
-import { useAuth } from "@/contexts/AuthContext";
 import { requireAuth } from "@/util/auth";
 import { Box, Stack, Typography } from "@mui/material";
 import { useSession } from "next-auth/react";
@@ -8,10 +7,9 @@ import { useSession } from "next-auth/react";
 export const getServerSideProps = requireAuth;
 
 export default function Home() {
-  // const { user, token, login, logout } = useAuth();
-  // console.log(user, token, login, logout)
-  const { data: session } = useSession();
-  console.log(session)
+
+  // const { data: session } = useSession();
+  // console.log(session)
   return (
     <MainLayout>
       <Box height="100vh" p={3}>
