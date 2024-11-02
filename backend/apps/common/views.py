@@ -37,35 +37,26 @@ def login_view(request):
         login(request, user)
         token, created = Token.objects.get_or_create(user=user)
 
-        # Aqui você deve coletar as informações do usuário que deseja retornar
         user_data = {
-            'id': user.id,  # ID do usuário
-            'email': user.email,  # Email do usuário
-            'username': user.username,  # Nome de usuário
-            # Papel ou função, se existir
+            'id': user.id, 
+            'email': user.email,  
+            'username': user.username,  
             'role': user.role if hasattr(user, 'role') else None,
         }
-        
+
         return Response({
             'user': user_data,
             'token': token.key
         }, status=status.HTTP_200_OK)
 
     return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-# @api_view(['POST'])
-# def login_view(request):
-#     username = request.data.get('username')
-#     password = request.data.get('password')
-#     user = authenticate(request, username=username, password=password)
-#     if user is not None:
-#         login(request, user)
-#         token, created = Token.objects.get_or_create(user=user)
-#         return Response({'token': token.key}, status=status.HTTP_200_OK)
-#     return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
 def logout_view(request):
-    request.user.auth_token.delete()
-    logout(request)
-    return Response(status=status.HTTP_200_OK)
+    if request.user.is_authenticated and hasattr(request.user, 'auth_token'):
+        request.user.auth_token.delete()
+        logout(request)
+        return Response({"detail": "Logout realizado com sucesso."}, status=status.HTTP_200_OK)
+    else:
+        return Response({"detail": "Usuário não autenticado."}, status=status.HTTP_400_BAD_REQUEST)

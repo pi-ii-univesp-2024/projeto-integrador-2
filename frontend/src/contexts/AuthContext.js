@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
@@ -24,7 +23,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null);
   };
-  console.log(user)
 
   return (
     <AuthContext.Provider value={{ user, token, login, logout }}>

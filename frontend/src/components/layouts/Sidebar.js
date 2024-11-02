@@ -21,6 +21,7 @@ import {
 import { HomeOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useSidebar } from "@/contexts/SidebarContext";
+import { useLogout } from "@/hooks/account";
 
 export const SIDEBAR_WIDTH = 280;
 
@@ -61,7 +62,11 @@ export default function Sidebar() {
           )}
         </Stack>
         <Divider />
-        <Stack component="nav">
+        <Stack
+          component="nav"
+          flex={1}
+          sx={{ overflowY: "auto", overflowX: "hidden" }}
+        >
           <SidebarItem Icon={HomeOutlined} label="Home" path="/" />
           <SidebarItem
             Icon={InventoryOutlinedIcon}
@@ -84,6 +89,8 @@ export default function Sidebar() {
             path="/fornecedores"
           />
         </Stack>
+        <Divider />
+        <LogoutContainer />
       </Drawer>
     </Box>
   );
@@ -129,6 +136,22 @@ function SidebarItem({ Icon, label, path }) {
         </ListItemButton>
       </ListItem>
     </List>
+  );
+}
+
+function LogoutContainer() {
+  const { mutateAsync: logout } = useLogout();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
+
+  return (
+    <Stack onClick={handleLogout} sx={{ cursor: "pointer", p: 2 }}>
+      <Typography>Sair</Typography>
+    </Stack>
   );
 }
 
