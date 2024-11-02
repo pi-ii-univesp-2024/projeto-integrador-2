@@ -6,6 +6,9 @@ import { DateToISO } from "@/util/date";
 import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function ProdutoEditar() {
   const router = useRouter();

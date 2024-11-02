@@ -6,6 +6,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import { useCategoriasProduto } from "@/hooks/categorias_produto";
 import useDebounce from "@/hooks/debounce";
+import { requireAuth } from "@/util/auth";
 import { DateFromISO } from "@/util/date";
 import { handleSortModel } from "@/util/sort";
 import { ModeEditOutlineOutlined } from "@mui/icons-material";
@@ -13,6 +14,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 import { useState } from "react";
+
+export const getServerSideProps = requireAuth;
 
 export default function CategoriasProduto() {
   const [offset, setOffset] = useState(0);

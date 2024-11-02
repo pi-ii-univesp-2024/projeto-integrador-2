@@ -6,6 +6,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import useDebounce from "@/hooks/debounce";
 import { useFornecedores } from "@/hooks/fornecedor";
+import { requireAuth } from "@/util/auth";
 import { DateFromISO } from "@/util/date";
 import { CEPMask, CNPJMask } from "@/util/masks";
 import { handleSortModel } from "@/util/sort";
@@ -15,6 +16,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/router";
 import { useState } from "react";
+
+export const getServerSideProps = requireAuth;
 
 export default function Fornecedores() {
   const [offset, setOffset] = useState(0);

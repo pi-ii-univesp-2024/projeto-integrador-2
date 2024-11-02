@@ -4,6 +4,9 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useEditFornecedor, useFornecedor } from "@/hooks/fornecedor";
 import FornecedorForm from "@/components/fornecedor/FornecedorForm";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function FornecedorEditar() {
   const router = useRouter();

@@ -1,8 +1,11 @@
-import { useRouter } from "next/router"; // Importe useRouter
+import { useRouter } from "next/router";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Box, Stack, Typography } from "@mui/material";
 import { useCreateFornecedor } from "@/hooks/fornecedor";
 import FornecedorForm from "@/components/fornecedor/FornecedorForm";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function FornecedorCriar() {
   const router = useRouter();

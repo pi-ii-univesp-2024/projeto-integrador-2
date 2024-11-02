@@ -1,8 +1,17 @@
 import CustomLink from "@/components/generics/CustomLink";
 import MainLayout from "@/components/layouts/MainLayout";
+import { useAuth } from "@/contexts/AuthContext";
+import { requireAuth } from "@/util/auth";
 import { Box, Stack, Typography } from "@mui/material";
+import { useSession } from "next-auth/react";
+
+export const getServerSideProps = requireAuth;
 
 export default function Home() {
+  // const { user, token, login, logout } = useAuth();
+  // console.log(user, token, login, logout)
+  const { data: session } = useSession();
+  console.log(session)
   return (
     <MainLayout>
       <Box height="100vh" p={3}>
@@ -20,8 +29,15 @@ export default function Home() {
                 aplicação for implementada.
               </Typography>
             </Stack>
-            <Stack component="footer" direction="row" justifyContent="center" alignItems="center" p={2} gap={0.5}>
-              <Typography variant="body2">Desenvolvido por: </Typography>
+            <Stack
+              component="footer"
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              p={2}
+              gap={0.5}
+            >
+              <Typography variant="body2">Desenvolvido por </Typography>
               <CustomLink
                 href="https://github.com/jobemcamera"
                 target="_blank"

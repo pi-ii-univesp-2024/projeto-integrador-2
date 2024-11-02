@@ -16,15 +16,17 @@ export default function CustomFormButtons({
 }) {
   return (
     <Stack direction="row" gap={2}>
-      <Button
-        color={cancelColor}
-        variant={cancelVariant}
-        onClick={() => cancelAction && cancelAction()}
-        startIcon={CancelStartIcon && <CancelStartIcon />}
-        endIcon={CancelEndIcon && <CancelEndIcon />}
-      >
-        {cancelTitle}
-      </Button>
+      {cancelAction && (
+        <Button
+          color={cancelColor}
+          variant={cancelVariant}
+          onClick={() => cancelAction && cancelAction()}
+          startIcon={CancelStartIcon && <CancelStartIcon />}
+          endIcon={CancelEndIcon && <CancelEndIcon />}
+        >
+          {cancelTitle}
+        </Button>
+      )}
       <Button
         type="submit"
         color={confirmColor}

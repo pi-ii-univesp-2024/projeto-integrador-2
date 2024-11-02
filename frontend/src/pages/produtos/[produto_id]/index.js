@@ -16,6 +16,9 @@ import {
 } from "@mui/material";
 import { useParams } from "next/navigation";
 import TitleValueComponent from "@/components/generics/TitleValueComponent";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function Produto() {
   const params = useParams();

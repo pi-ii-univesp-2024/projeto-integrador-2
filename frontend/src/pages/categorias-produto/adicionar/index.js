@@ -3,6 +3,9 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { Box, Stack, Typography } from "@mui/material";
 import CategoriaProdutoForm from "@/components/categoria-produto/CategoriaProdutoForm";
 import { useCreateCategoriaProduto } from "@/hooks/categorias_produto";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function CategoriaProdutoCriar() {
   const router = useRouter();

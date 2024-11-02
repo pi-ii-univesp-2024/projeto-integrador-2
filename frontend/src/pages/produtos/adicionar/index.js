@@ -4,6 +4,9 @@ import ProdutoForm from "@/components/produto/ProdutoForm";
 import { useCreateProduto } from "@/hooks/produtos";
 import { DateToISO } from "@/util/date";
 import { Box, Stack, Typography } from "@mui/material";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function ProdutoCriar() {
   const router = useRouter();

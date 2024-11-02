@@ -5,11 +5,14 @@ import CustomDataGrid from "@/components/lists/CustomDataGrid";
 import useDebounce from "@/hooks/debounce";
 import { useEstoques } from "@/hooks/estoque";
 import { useProduto } from "@/hooks/produtos";
+import { requireAuth } from "@/util/auth";
 import { DateFromISO } from "@/util/date";
 import { ESTOQUE_TIPO_OPTIONS } from "@/util/estoque";
 import { handleSortModel } from "@/util/sort";
 import { Box, Chip, CircularProgress, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+
+export const getServerSideProps = requireAuth;
 
 export default function Estoque() {
   const [offset, setOffset] = useState(0);

@@ -14,6 +14,9 @@ import {
 import { useParams } from "next/navigation";
 import TitleValueComponent from "@/components/generics/TitleValueComponent";
 import { CEPMask, CNPJMask } from "@/util/masks";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function Fornecedor() {
   const params = useParams();

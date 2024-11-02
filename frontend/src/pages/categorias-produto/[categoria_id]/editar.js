@@ -8,6 +8,9 @@ import {
   useEditCategoriaProduto,
 } from "@/hooks/categorias_produto";
 import CategoriaProdutoForm from "@/components/categoria-produto/CategoriaProdutoForm";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function CategoriaProdutoEditar() {
   const router = useRouter();

@@ -9,6 +9,7 @@ import { useCategoriaProduto } from "@/hooks/categorias_produto";
 import useDebounce from "@/hooks/debounce";
 import { useFornecedor } from "@/hooks/fornecedor";
 import { useProdutos } from "@/hooks/produtos";
+import { requireAuth } from "@/util/auth";
 import { DateFromISO } from "@/util/date";
 import { formatPrecoReal } from "@/util/numbers";
 import { UNIDADES_PRODUTO_OPTIONS } from "@/util/produtos";
@@ -17,8 +18,9 @@ import { AddOutlined, ModeEditOutlineOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
-
 import { useState } from "react";
+
+export const getServerSideProps = requireAuth;
 
 export default function Produtos() {
   const [offset, setOffset] = useState(0);

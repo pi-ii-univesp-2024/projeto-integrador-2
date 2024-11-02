@@ -12,6 +12,9 @@ import { useParams } from "next/navigation";
 import TitleValueComponent from "@/components/generics/TitleValueComponent";
 import { DateFromISO } from "@/util/date";
 import CustomLoader from "@/components/generics/CustomLoader";
+import { requireAuth } from "@/util/auth";
+
+export const getServerSideProps = requireAuth;
 
 export default function CategoriaProduto() {
   const params = useParams();
