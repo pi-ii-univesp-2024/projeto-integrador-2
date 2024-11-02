@@ -28,7 +28,7 @@ export default function Fornecedor() {
 
   return (
     <MainLayout>
-      <Box p={2}>
+      <Box p={3}>
         <Typography component="h1" variant="h1">
           Informações do fornecedor
         </Typography>
