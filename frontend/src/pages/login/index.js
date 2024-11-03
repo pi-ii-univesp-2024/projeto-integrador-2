@@ -1,5 +1,8 @@
 import LoginForm from "@/components/login/LoginForm";
+import { requireAuth } from "@/util/auth";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
+
+export const getServerSideProps = requireAuth;
 
 export default function Login() {
   return (
