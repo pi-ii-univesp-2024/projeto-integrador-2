@@ -1,8 +1,7 @@
-// hooks/useAuthenticatedRequest.js
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-const NEXT_PUBLIC_DJANGO_API_URL = "http://localhost:8000";
+const NEXT_PUBLIC_DJANGO_API_URL = "http://localhost:8000/api";
 
 export const useAuthenticatedRequest = () => {
   const { data: session } = useSession();

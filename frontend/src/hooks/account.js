@@ -1,9 +1,11 @@
-import api from "../../lib/axios";
 import { useData } from "./base_hook";
+import { useAuthenticatedRequest } from "./useAuthenticatedRequest";
 
 export const useUsers = (options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchUsers = async () => {
-    const response = await api.get("users/");
+    const response = await request.get("users/");
     return response.data;
   };
 
@@ -11,8 +13,10 @@ export const useUsers = (options = {}) => {
 };
 
 export const useUser = (userId, options = {}) => {
+  const request = useAuthenticatedRequest();
+  
   const fetchUser = async () => {
-    const response = await api.get(`users/${userId}/`);
+    const response = await request.get(`users/${userId}/`);
     return response.data;
   };
 

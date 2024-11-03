@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../lib/axios";
 import { useData } from "./base_hook";
 import queryClient from "@/config/queryClient";
+import { useAuthenticatedRequest } from "./useAuthenticatedRequest";
 
 // Hook para buscar todos os estoques
 export const useEstoques = (params = {}, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchEstoque = async () => {
-    const response = await api.get("estoques/", { params });
+    const response = await request.get("estoques/", { params });
     return response.data;
   };
 
@@ -20,9 +22,11 @@ export const useEstoques = (params = {}, options = {}) => {
 };
 
 export const useCreateEstoque = () => {
+  const request = useAuthenticatedRequest();
+  
   return useMutation({
     mutationFn: async (data) => {
-      const response = await api.post("estoques/", data);
+      const response = await request.post("estoques/", data);
       return response.data;
     },
     onError: (error) => {

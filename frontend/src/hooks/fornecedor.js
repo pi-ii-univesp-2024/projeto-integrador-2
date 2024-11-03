@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../lib/axios";
 import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
+import { useAuthenticatedRequest } from "./useAuthenticatedRequest";
 
 // Hook para buscar todos os fornecedores
 export const useFornecedores = (params = {}, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchFornecedores = async () => {
-    const response = await api.get("fornecedores/", { params });
+    const response = await request.get("fornecedores/", { params });
     return response.data;
   };
 
@@ -21,8 +23,10 @@ export const useFornecedores = (params = {}, options = {}) => {
 
 // Hook para buscar um único fornecedor
 export const useFornecedor = (id, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchFornecedor = async () => {
-    const response = await api.get(`fornecedores/${id}/`);
+    const response = await request.get(`fornecedores/${id}/`);
     return response.data;
   };
 
@@ -31,9 +35,11 @@ export const useFornecedor = (id, options = {}) => {
 
 // Hook para criar um novo fornecedor
 export const useCreateFornecedor = () => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async (newFornecedor) => {
-      const response = await api.post("fornecedores/", newFornecedor);
+      const response = await request.post("fornecedores/", newFornecedor);
       return response.data;
     },
     onSuccess: () => {
@@ -44,9 +50,11 @@ export const useCreateFornecedor = () => {
 
 // Hook para editar um fornecedor existente
 export const useEditFornecedor = (id) => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async (data) => {
-      const response = await api.put(`fornecedores/${id}/`, data);
+      const response = await request.put(`fornecedores/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -57,9 +65,11 @@ export const useEditFornecedor = (id) => {
 
 // Hook para excluir um fornecedor
 export const useDeleteFornecedor = (id) => {
+  const request = useAuthenticatedRequest();
+  
   return useMutation({
     mutationFn: async () => {
-      await api.delete(`fornecedores/${id}/`);
+      await request.delete(`fornecedores/${id}/`);
       return id;
     },
     onSuccess: (deletedId) => {

@@ -1,4 +1,5 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
+from rest_framework.authentication import TokenAuthentication
 from .models import Estoque
 from .serializers import EstoqueSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,6 +14,8 @@ class EstoqueListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPageNumberPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_class = EstoqueFilter
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -22,3 +25,5 @@ class EstoqueListCreateView(generics.ListCreateAPIView):
 class EstoqueRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Estoque.objects.all()
     serializer_class = EstoqueSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]

@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../lib/axios";
 import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
+import { useAuthenticatedRequest } from "@/hooks/useAuthenticatedRequest";
 
 // Hook para buscar todos os produtos
 export const useProdutos = (params = {}, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchProdutos = async () => {
-    const response = await api.get("produtos/", { params });
+    const response = await request.get("produtos/", { params });
     return response.data;
   };
 
@@ -21,8 +23,10 @@ export const useProdutos = (params = {}, options = {}) => {
 
 // Hook para buscar um único produto
 export const useProduto = (id, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchProduto = async () => {
-    const response = await api.get(`produtos/${id}/`);
+    const response = await request.get(`produtos/${id}/`);
     return response.data;
   };
 
@@ -31,9 +35,11 @@ export const useProduto = (id, options = {}) => {
 
 // Hook para criar um novo produto
 export const useCreateProduto = () => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async (newProduto) => {
-      const response = await api.post("produtos/", newProduto);
+      const response = await request.post("produtos/", newProduto);
       return response.data;
     },
     onSuccess: () => {
@@ -44,9 +50,11 @@ export const useCreateProduto = () => {
 
 // Hook para editar um produto existente
 export const useEditProduto = (id) => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async (data) => {
-      const response = await api.put(`produtos/${id}/`, data);
+      const response = await request.put(`produtos/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -57,9 +65,11 @@ export const useEditProduto = (id) => {
 
 // Hook para excluir um produto
 export const useDeleteProduto = (id) => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async () => {
-      await api.delete(`produtos/${id}/`);
+      await request.delete(`produtos/${id}/`);
       return id;
     },
     onSuccess: (deletedId) => {

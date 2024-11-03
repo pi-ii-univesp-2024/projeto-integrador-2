@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
-import api from "../../lib/axios";
 import queryClient from "@/config/queryClient";
 import { useData } from "./base_hook";
+import { useAuthenticatedRequest } from "./useAuthenticatedRequest";
 
 // Hook para buscar todas as categorias de produtos
 export const useCategoriasProduto = (params = {}, options = {}) => {
+  const request = useAuthenticatedRequest();
+  
   const fetchCategoriasProduto = async () => {
-    const response = await api.get("categorias_produtos/", { params });
+    const response = await request.get("categorias_produtos/", { params });
     return response.data;
   };
 
@@ -25,8 +27,10 @@ export const useCategoriasProduto = (params = {}, options = {}) => {
 
 // Hook para buscar uma única categoria de produto
 export const useCategoriaProduto = (id, options = {}) => {
+  const request = useAuthenticatedRequest();
+
   const fetchCategoriaProduto = async () => {
-    const response = await api.get(`categorias_produtos/${id}/`);
+    const response = await request.get(`categorias_produtos/${id}/`);
     return response.data;
   };
 
@@ -35,9 +39,11 @@ export const useCategoriaProduto = (id, options = {}) => {
 
 // Hook para criar uma nova categoria de produto
 export const useCreateCategoriaProduto = () => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async (newCategoria) => {
-      const response = await api.post("categorias_produtos/", newCategoria);
+      const response = await request.post("categorias_produtos/", newCategoria);
       return response.data;
     },
     onSuccess: () => {
@@ -48,9 +54,11 @@ export const useCreateCategoriaProduto = () => {
 
 // Hook para editar uma categoria de produto existente
 export const useEditCategoriaProduto = (id) => {
+  const request = useAuthenticatedRequest();
+  
   return useMutation({
     mutationFn: async (data) => {
-      const response = await api.put(`categorias_produtos/${id}/`, data);
+      const response = await request.put(`categorias_produtos/${id}/`, data);
       return response.data;
     },
     onSuccess: () => {
@@ -61,9 +69,11 @@ export const useEditCategoriaProduto = (id) => {
 
 // Hook para excluir uma categoria de produto
 export const useDeleteCategoriaProduto = (id) => {
+  const request = useAuthenticatedRequest();
+
   return useMutation({
     mutationFn: async () => {
-      await api.delete(`categorias_produtos/${id}/`);
+      await request.delete(`categorias_produtos/${id}/`);
       return id; // Retorna o id após a exclusão
     },
     onSuccess: (deletedId) => {
