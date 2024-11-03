@@ -7,16 +7,20 @@ import { useSession } from "next-auth/react";
 export const getServerSideProps = requireAuth;
 
 export default function Home() {
-
-  // const { data: session } = useSession();
-  // console.log(session)
+  const { data: session } = useSession();
+  const user = session?.user;
+  const userName = user?.username || "";
   return (
     <MainLayout>
       <Box height="100vh" p={3}>
         <Stack height="100%">
           <Typography variant="h1">Home</Typography>
           <Stack mt={2} height="100%" justifyContent="space-between">
-            <Stack flex={1}>
+            <Stack component="article" flex={1}>
+              <Typography
+                variant="h3"
+                gutterBottom
+              >{`Olá, ${userName}`}</Typography>
               <Typography variant="body1">
                 Este projeto é um experimento Técnico-Científico apresentado na
                 disciplina de Projeto Integrador II para o curso de Tecnologia
