@@ -56,19 +56,19 @@ export default function FornecedorForm({
 
         useEffect(() => {
           if (cepData) {
-            setFieldValue("logradouro", cepData.logradouro);
-            setFieldValue("complemento", cepData.complemento);
-            setFieldValue("bairro", cepData.bairro);
-            setFieldValue("cidade", cepData.cidade);
-            setFieldValue("estado", cepData.estado);
-          } else {
-            setFieldValue("logradouro", "");
-            setFieldValue("complemento", "");
-            setFieldValue("bairro", "");
-            setFieldValue("cidade", "");
-            setFieldValue("estado", "");
+            setFieldValue(
+              "logradouro",
+              cepData.logradouro || initialValues.logradouro
+            );
+            setFieldValue(
+              "complemento",
+              cepData.complemento || initialValues.complemento
+            );
+            setFieldValue("bairro", cepData.bairro || initialValues.bairro);
+            setFieldValue("cidade", cepData.cidade || initialValues.cidade);
+            setFieldValue("estado", cepData.estado || initialValues.estado);
           }
-        }, [cepData, error, isError, setFieldValue]);
+        }, [cepData, setFieldValue, initialValues]);
 
         return (
           <Form>
