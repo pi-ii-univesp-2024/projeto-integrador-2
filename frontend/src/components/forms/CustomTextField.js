@@ -13,6 +13,7 @@ const CustomTextField = ({ name, label, ...props }) => {
       size="small"
       error={meta.touched && Boolean(meta.error)}
       helperText={meta.touched && meta.error}
+      autoComplete="off"
     />
   );
 };

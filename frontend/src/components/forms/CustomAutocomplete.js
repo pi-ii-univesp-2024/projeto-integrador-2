@@ -25,6 +25,7 @@ const CustomAutocomplete = ({ name, label, options, ...props }) => {
           onBlur={() => setFieldTouched(name, true)}
           error={meta.touched && Boolean(meta.error)}
           helperText={meta.touched && meta.error}
+          autoComplete="off"
         />
       )}
     />
