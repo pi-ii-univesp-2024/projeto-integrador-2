@@ -111,6 +111,13 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+Para rodar os testes do Backend
+
+```
+cd .\backend\
+pytest
+```
+
 #### Frontend
 
 A estrutura de pastas do projeto se concentra em `\src`:
